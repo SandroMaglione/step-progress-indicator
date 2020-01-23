@@ -10,13 +10,15 @@
   </a>
 </p>
 
-Progress indicator that contains a series of steps.
+Open source Flutter package, bar indicator made of a series of selected and unselected steps.
+
+Made by Sandro Maglione, 
 
 ## Example
 Install and import the package. Then just customize its parameters.
 
-<img width="400" alt="Horizontal indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png" target="_blank" />
-<img width="400" alt="Vertical indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png" target="_blank" />
+<img width="330" alt="Horizontal indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png" target="_blank" />
+<img width="330" alt="Vertical indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png" target="_blank" />
 
 
 Horizontal step bar indicators examples code:
@@ -156,18 +158,18 @@ Row(
 
 | Parameter       	| Type | Description | Default |
 |-------------------|------|-------------|---------|
-| totalSteps    | int | Total number of step of the complete indicator. | @required |
-| currentStep 	| int | Number of steps to underline, all the steps with index <= currentStep will have Color equal to selectedColor. | 0 |
-| customStep(int, Color) | Widget | Defines a custom Widget to display at each step, given the current step index and the Color, which could be defined with selectedColor and unselectedColor or using customColor. | - |
-| onTap(int)         	| void Function() | Defines onTap function given index of the pressed step. | - |
-| customColor(int)         	| Color | Assign a custom Color for each step. | - |
-| direction         	| Axis | Defines if indicator is horizontal or vertical. | Axis.horizontal |
-| progressDirection         	| TextDirection | Defines if steps grow from left-to-right / top-to-bottom TextDirection.ltr or right-to-left / bottom-to-top TextDirection.rtl. | TextDirection.ltr |
-| height         	| double | Height of the indicator. | 4.0 |
-| width         	| double | Width of the indicator. | 4.0 |
-| selectedColor         	| Color | Color of the selected steps. | Colors.blue |
-| unselectedColor         	| Color | Color of the unselected steps. | Colors.grey |
-| padding         	| double | Spacing between each step. | 2.0 |
+| totalSteps    | `int` | Total number of step of the complete indicator. | `@required` |
+| currentStep 	| `int` | Number of steps to underline, all the steps with index <= currentStep will have Color equal to selectedColor. | 0 |
+| customStep`(int, Color)` | `Widget` | Defines a custom Widget to display at each step, given the current step index and the Color, which could be defined with selectedColor and unselectedColor or using customColor. | - |
+| onTap`(int)`         	| `void Function()` | Defines onTap function given index of the pressed step. | - |
+| customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
+| direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
+| progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
+| height         	| `double` | Height of the indicator. | 4.0 |
+| width         	| `double` | Width of the indicator. | 4.0 |
+| selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
+| unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
+| padding         	| `double` | Spacing between each step. | 2.0 |
 
 ## Versioning
 - v0.1.0 - 23 January 2020
