@@ -15,8 +15,8 @@ Progress indicator that contains a series of steps.
 ## Example
 Install and import the package. Then just customize its parameters.
 
-<img width="500" alt="Horizontal indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png" target="_blank" />
-<img width="500" alt="Vertical indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png" target="_blank" />
+<img width="400" alt="Horizontal indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png" target="_blank" />
+<img width="400" alt="Vertical indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png" target="_blank" />
 
 
 Horizontal step bar indicators examples code:
