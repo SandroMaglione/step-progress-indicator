@@ -173,7 +173,7 @@ Row(
 | padding         	| `double` | Spacing between each step. | 2.0 |
 
 ## Versioning
-- v0.1.0 - 23 January 2020
+- v0.1.0+1 - 23 January 2020
 
 ## License
 GNU General Public License v3.0, see the [LICENSE.md](https://github.com/SandroMaglione/k-means-visualization/blob/master/LICENSE) file for details.
