@@ -14,6 +14,8 @@ Open source Flutter package, bar indicator made of a series of selected and unse
 
 Made by Sandro Maglione, [sandromaglione.com](https://www.sandromaglione.com)
 
+See the full example [here](https://github.com/SandroMaglione/step-progress-indicator/tree/master/example)
+
 ## Example
 Install and import the package. Then just customize its parameters.
 
