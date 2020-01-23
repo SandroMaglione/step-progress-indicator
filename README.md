@@ -17,10 +17,10 @@ Made by Sandro Maglione, [sandromaglione.com](https://www.sandromaglione.com)
 ## Example
 Install and import the package. Then just customize its parameters.
 
-<div style="display:flex; flex-direction: row;">
-    <img style="width: 100%;" alt="Horizontal indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png" target="_blank" />
-    <img style="width: 100%;" alt="Vertical indicator screen" src="https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png" target="_blank" />
-</div>
+Horizontal             |  Vertical
+:-------------------------:|:-------------------------:
+![Horizontal indicator screen](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png)  |  ![Vertical indicator screen](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png)
+
 
 Horizontal step bar indicators examples code:
 ```dart
