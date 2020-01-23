@@ -1,0 +1,19 @@
+name: step_progress_indicator
+description: Progress indicator that contains a series of steps
+version: 0.1.0
+author: Sandro Maglione <lass.maglio@gmail.com>
+homepage: https://www.sandromaglione.com
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
