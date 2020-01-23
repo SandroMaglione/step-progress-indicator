@@ -16,6 +16,8 @@ Made by Sandro Maglione, [sandromaglione.com](https://www.sandromaglione.com)
 
 See the full example [here](https://github.com/SandroMaglione/step-progress-indicator/tree/master/example)
 
+Check out the official dartdoc for the package [here](https://pub.dev/documentation/step_progress_indicator/latest/step_progress_indicator/StepProgressIndicator-class.html)
+
 ## Example
 Install and import the package. Then just customize its parameters.
 
