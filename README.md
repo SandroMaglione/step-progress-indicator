@@ -174,6 +174,12 @@ Row(
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
 | padding         	| `double` | Spacing between each step. | 2.0 |
 
+## Ideas
+I am always open for suggestions and ideas for possible improvements or fixes.
+
+Here below a list of coming/future improvements:
+- Adding support for animations
+
 ## Versioning
 - v0.1.0+1 - 23 January 2020
 
