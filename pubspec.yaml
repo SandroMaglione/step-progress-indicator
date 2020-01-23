@@ -1,7 +1,7 @@
 name: step_progress_indicator
 description: Bar indicator made of a series of selected and unselected steps
 version: 0.1.0+1
-homepage: https://www.sandromaglione.com
+homepage: https://github.com/SandroMaglione/step-progress-indicator
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
