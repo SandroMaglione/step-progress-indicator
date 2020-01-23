@@ -2,8 +2,9 @@
 <p>
   <img src="https://img.shields.io/badge/version-0.1.0%2B1-blue.svg" />
   <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.5-blue.svg" />
-  <img alt="GitHub followers" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social">
-  <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/SandroMaglione?style=social">
+  <a href="https://github.com/SandroMaglione">
+    <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
+  </a>
   <a href="https://twitter.com/SandroMaglione">
     <img alt="Twitter: SandroMaglione" src="https://img.shields.io/twitter/follow/SandroMaglione.svg?style=social" target="_blank" />
   </a>
@@ -13,6 +14,9 @@ Progress indicator that contains a series of steps.
 
 ## Example
 Install and import the package. Then just customize its parameters.
+![alt text](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png "Horizontal indicator screen")
+![alt text](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png "Vertical indicator screen")
+
 
 Horizontal step bar indicators examples code:
 ```dart
@@ -87,6 +91,8 @@ Column(
     ],
 )
 ```
+
+
 
 Vertical step bar indicators examples code:
 ```dart
