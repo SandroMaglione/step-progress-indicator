@@ -1,6 +1,6 @@
 # Step Progress Indicator
 <p>
-  <img src="https://img.shields.io/badge/version-0.1.0%2B1-blue.svg" />
+  <img src="https://img.shields.io/badge/version-0.1.1%2B2-blue.svg" />
   <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.5-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
@@ -12,7 +12,9 @@
 
 Open source Flutter package, bar indicator made of a series of selected and unselected steps.
 
-Made by Sandro Maglione, [sandromaglione.com](https://www.sandromaglione.com)
+Made by Sandro Maglione, check out his personal official website [sandromaglione.com](https://www.sandromaglione.com)
+
+**[Check out the full step_progress_indicator tutorial](http://www.sandromaglione.com/blog/2020/01/24/step-progress-indicator-flutter-package-tutorial/)**
 
 See the full example [here](https://github.com/SandroMaglione/step-progress-indicator/tree/master/example)
 
