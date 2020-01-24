@@ -185,6 +185,7 @@ Here below a list of coming/future improvements:
 - Adding support for animations
 
 ## Versioning
+- v0.1.1+2 - 24 January 2020
 - v0.1.0+1 - 23 January 2020
 
 ## License
