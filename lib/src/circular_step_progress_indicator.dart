@@ -117,15 +117,15 @@ class CircularStepProgressIndicator extends StatelessWidget {
       builder: (context, constraints) => Container(
         // Apply fallback for both height and width
         // if their value is null and no parent size limit
-        height: height == null
+        height: height != null
             ? height
             : constraints.maxHeight != double.infinity
                 ? constraints.maxHeight
                 : fallbackHeight,
-        width: height == null
-            ? height
-            : constraints.maxHeight != double.infinity
-                ? constraints.maxHeight
+        width: width != null
+            ? width
+            : constraints.maxWidth != double.infinity
+                ? constraints.maxWidth
                 : fallbackWidth,
         child: CustomPaint(
           painter: _CircularIndicatorPainter(

@@ -91,7 +91,7 @@ class HorizontalBar extends StatelessWidget {
               letterSpacing: 1.2,
               color: Colors.black87,
             ),
-          )
+          ),
         ],
       ),
     );
