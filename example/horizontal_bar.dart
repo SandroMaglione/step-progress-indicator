@@ -1,98 +1,102 @@
 import 'package:flutter/material.dart';
 import '../lib/step_progress_indicator.dart';
 
+/// Examples of step_progress_indicators, direction [Axis.horizontal]
 class HorizontalBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24.0,
-        vertical: 24.0,
-      ),
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                StepProgressIndicator(
-                  totalSteps: 10,
-                  currentStep: 6,
-                ),
-                StepProgressIndicator(
-                  totalSteps: 16,
-                  currentStep: 10,
-                  unselectedColor: Colors.red,
-                  selectedColor: Colors.yellow,
-                  size: 10.0,
-                ),
-                StepProgressIndicator(
-                  totalSteps: 6,
-                  customColor: (index) =>
-                      index % 2 == 0 ? Colors.pink : Colors.black,
-                  size: 20.0,
-                ),
-                StepProgressIndicator(
-                  totalSteps: 10,
-                  currentStep: 9,
-                  customStep: (index, color, _) => Container(
-                    color: color,
-                    child: Text(
-                      '$index',
-                      textAlign: TextAlign.center,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24.0,
+          vertical: 24.0,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    StepProgressIndicator(
+                      totalSteps: 10,
                     ),
-                  ),
-                  size: 20.0,
-                ),
-                StepProgressIndicator(
-                  totalSteps: 10,
-                  customColor: (index) =>
-                      index % 3 == 0 ? Colors.white : Colors.green,
-                  progressDirection: TextDirection.rtl,
-                  size: 6.0,
-                  padding: 10.0,
-                ),
-                StepProgressIndicator(
-                  totalSteps: 10,
-                  direction: Axis.horizontal,
-                  size: 30,
-                  progressDirection: TextDirection.rtl,
-                  onTap: (index) {
-                    return () {
-                      print('$index pressed');
-                    };
-                  },
-                  customStep: (index, color, _) => Container(
-                    color: color.withOpacity(index / 10),
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: Text(
-                      '$index',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 6.0 + (index * 5.2),
-                        color: Colors.white,
-                      ),
+                    StepProgressIndicator(
+                      totalSteps: 10,
+                      currentStep: 6,
+                      selectedColor: Colors.red,
+                      unselectedColor: Colors.yellow,
                     ),
-                  ),
-                  currentStep: 7,
-                  customColor: (index) => index % 2 == 0
-                      ? Colors.yellow[900]
-                      : index % 3 == 0 ? Colors.blue[900] : Colors.black54,
-                  padding: 6.0,
+                    StepProgressIndicator(
+                      totalSteps: 20,
+                      currentStep: 6,
+                      size: 10,
+                      selectedColor: Colors.purple,
+                      unselectedColor: Colors.transparent,
+                    ),
+                    StepProgressIndicator(
+                      totalSteps: 12,
+                      currentStep: 4,
+                      padding: 6.0,
+                      size: 12,
+                      progressDirection: TextDirection.rtl,
+                      selectedColor: Colors.green,
+                      unselectedColor: Colors.black12,
+                    ),
+                    StepProgressIndicator(
+                      totalSteps: 5,
+                      padding: 20.0,
+                      size: 20,
+                      customColor: (index) => index == 0
+                          ? Colors.redAccent
+                          : index == 4 ? Colors.blueAccent : Colors.deepOrange,
+                    ),
+                    StepProgressIndicator(
+                      totalSteps: 6,
+                      currentStep: 4,
+                      size: 36,
+                      selectedColor: Colors.black,
+                      unselectedColor: Colors.grey[200],
+                      customStep: (index, color, _) => color == Colors.black
+                          ? Container(
+                              color: color,
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            )
+                          : Container(
+                              color: color,
+                              child: Icon(
+                                Icons.remove,
+                              ),
+                            ),
+                    ),
+                    StepProgressIndicator(
+                      totalSteps: 10,
+                      currentStep: 7,
+                      selectedColor: Colors.pink,
+                      unselectedColor: Colors.amber,
+                      customSize: (index) => (index + 1) * 10.0,
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-          Text(
-            'https//www.sandromaglione.com',
-            style: TextStyle(
-              fontSize: 15.0,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1.2,
-              color: Colors.black87,
+            Text(
+              'https//www.sandromaglione.com',
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.2,
+                color: Colors.black87,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
