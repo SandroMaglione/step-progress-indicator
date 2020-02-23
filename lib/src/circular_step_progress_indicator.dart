@@ -132,7 +132,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, constraints) => Container(
+      builder: (context, constraints) => SizedBox(
         // Apply fallback for both height and width
         // if their value is null and no parent size limit
         height: height != null
@@ -259,8 +259,9 @@ class _CircularIndicatorPainter implements CustomPainter {
         step < totalSteps;
         stepAngle += stepLength, ++step) {
       // Size of the step
-      final indexStepSize =
-          customStepSize(isClockwise ? step : totalSteps - step - 1);
+      final indexStepSize = customStepSize != null
+          ? customStepSize(isClockwise ? step : totalSteps - step - 1)
+          : stepSize;
 
       // Use customColor if defined
       final stepColor = customColor != null
