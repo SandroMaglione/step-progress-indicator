@@ -30,14 +30,109 @@ Horizontal             |  Vertical
 
 ## Examples
 
-| Screenshot       	| Code |
-|-------------------|------|
-|![Step Progress Indicator - Example 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example1.png)|```dart
+### StepProgressIndicator - Example 1
+![Step Progress Indicator - Example 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example1.png)
+
+```dart
 StepProgressIndicator(
     totalSteps: 10,
 )
 ```
-|
+
+### StepProgressIndicator - Example 2
+![Step Progress Indicator - Example 2](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example2.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 10,
+    currentStep: 6,
+    selectedColor: Colors.red,
+    unselectedColor: Colors.yellow,
+)
+```
+
+### StepProgressIndicator - Example 3
+![Step Progress Indicator - Example 3](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example3.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 20,
+    currentStep: 6,
+    size: 10,
+    selectedColor: Colors.purple,
+    unselectedColor: Colors.transparent,
+)
+```
+
+### StepProgressIndicator - Example 4
+![Step Progress Indicator - Example 4](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example4.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 12,
+    currentStep: 4,
+    padding: 6.0,
+    size: 12,
+    progressDirection: TextDirection.rtl,
+    selectedColor: Colors.green,
+    unselectedColor: Colors.black12,
+)
+```
+
+### StepProgressIndicator - Example 5
+![Step Progress Indicator - Example 5](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example5.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 5,
+    padding: 20.0,
+    size: 20,
+    customColor: (index) => index == 0
+        ? Colors.redAccent
+        : index == 4 ? Colors.blueAccent : Colors.deepOrange,
+)
+```
+
+### StepProgressIndicator - Example 6
+![Step Progress Indicator - Example 6](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example6.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 6,
+    currentStep: 4,
+    size: 36,
+    selectedColor: Colors.black,
+    unselectedColor: Colors.grey[200],
+    customStep: (index, color, _) => color == Colors.black
+        ? Container(
+            color: color,
+            child: Icon(
+            Icons.check,
+            color: Colors.white,
+            ),
+        )
+        : Container(
+            color: color,
+            child: Icon(
+            Icons.remove,
+            ),
+        ),
+)
+```
+
+### StepProgressIndicator - Example 7
+![Step Progress Indicator - Example 7](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example7.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 10,
+    currentStep: 7,
+    selectedColor: Colors.pink,
+    unselectedColor: Colors.amber,
+    customSize: (index) => (index + 1) * 10.0,
+)
+```
+
 
 
 ## Parameters
