@@ -24,45 +24,45 @@ class HorizontalBar extends StatelessWidget {
                   currentStep: 10,
                   unselectedColor: Colors.red,
                   selectedColor: Colors.yellow,
-                  height: 10.0,
+                  size: 10.0,
                 ),
                 StepProgressIndicator(
                   totalSteps: 6,
                   customColor: (index) =>
                       index % 2 == 0 ? Colors.pink : Colors.black,
-                  height: 20.0,
+                  size: 20.0,
                 ),
                 StepProgressIndicator(
                   totalSteps: 10,
                   currentStep: 9,
-                  customStep: (index, color) => Container(
+                  customStep: (index, color, _) => Container(
                     color: color,
                     child: Text(
                       '$index',
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  height: 20.0,
+                  size: 20.0,
                 ),
                 StepProgressIndicator(
                   totalSteps: 10,
                   customColor: (index) =>
                       index % 3 == 0 ? Colors.white : Colors.green,
                   progressDirection: TextDirection.rtl,
-                  height: 6.0,
+                  size: 6.0,
                   padding: 10.0,
                 ),
                 StepProgressIndicator(
                   totalSteps: 10,
                   direction: Axis.horizontal,
-                  width: 30,
+                  size: 30,
                   progressDirection: TextDirection.rtl,
                   onTap: (index) {
                     return () {
                       print('$index pressed');
                     };
                   },
-                  customStep: (index, color) => Container(
+                  customStep: (index, color, _) => Container(
                     color: color.withOpacity(index / 10),
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: Text(

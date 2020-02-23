@@ -86,6 +86,15 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// Default value: 100.0
   final double fallbackWidth;
 
+  /// Angle in radiants in which the first step of the indicator is placed.
+  /// The initial value is on the top of the indicator (- math.pi / 2)
+  /// - \- math.pi / 2 => TOP
+  /// - 0 => RIGHT
+  /// - math.pi / 2 => BOTTOM
+  /// - math.pi => LEFT
+  /// - math.pi / 2 * 3 => TOP (again)
+  final double startingAngle;
+
   // TODO: final bool isRadial;
 
   CircularStepProgressIndicator({
@@ -102,6 +111,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
     this.unselectedColor = Colors.grey,
     this.padding = math.pi / 20,
     this.stepSize = 6.0,
+    this.startingAngle = -math.pi / 2,
     Key key,
   })  : assert(totalSteps > 0,
             "Number of total steps (totalSteps) of the CircularStepProgressIndicator must be greater than 0"),
@@ -137,6 +147,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
             selectedColor: selectedColor,
             unselectedColor: unselectedColor,
             stepSize: stepSize,
+            startingAngle: startingAngle,
           ),
           // Padding needed to show the indicator when child is placed on top of it
           child: Padding(
@@ -158,6 +169,7 @@ class _CircularIndicatorPainter implements CustomPainter {
   final double stepSize;
   final Color Function(int) customColor;
   final CircularDirection circularDirection;
+  final double startingAngle;
 
   _CircularIndicatorPainter({
     @required this.totalSteps,
@@ -168,6 +180,7 @@ class _CircularIndicatorPainter implements CustomPainter {
     @required this.unselectedColor,
     @required this.padding,
     @required this.stepSize,
+    @required this.startingAngle,
   });
 
   @override
@@ -195,8 +208,40 @@ class _CircularIndicatorPainter implements CustomPainter {
     // Change color selected or unselected based on the circularDirection
     final isClockwise = circularDirection == CircularDirection.clockwise;
 
+    // Make a continuous arc without rendering all the steps when possible
+    if (padding == 0 && customColor == null) {
+      final initialStepColor = isClockwise ? selectedColor : unselectedColor;
+      final finalStepColor = !isClockwise ? selectedColor : unselectedColor;
+
+      final firstArcLength = (math.pi * 2) * (currentStep / totalSteps);
+
+      final secondArcStartingAngle = startingAngle + firstArcLength;
+      final secondArcLength = (math.pi * 2) - firstArcLength;
+
+      // First arc, selected when clockwise, unselected otherwise
+      canvas.drawArc(
+        rect,
+        startingAngle,
+        firstArcLength,
+        false /*isRadial*/,
+        paint..color = initialStepColor,
+      );
+
+      // Second arc, selected when counterclockwise, unselected otherwise
+      canvas.drawArc(
+        rect,
+        secondArcStartingAngle,
+        secondArcLength,
+        false /*isRadial*/,
+        paint..color = finalStepColor,
+      );
+
+      return;
+    }
+
     // Draw a series of circular arcs to compose the indicator
-    for (var stepAngle = -math.pi / 2, step = 0;
+    // Starting based on startingAngle attribute
+    for (var stepAngle = startingAngle, step = 0;
         step < totalSteps;
         stepAngle += stepLength, ++step) {
       // Use customColor if defined
@@ -212,7 +257,6 @@ class _CircularIndicatorPainter implements CustomPainter {
       canvas.drawArc(
         rect,
         stepAngle,
-        // Draw arc in the opposite direction whencounterclockwise
         stepLength - padding,
         false /*isRadial*/,
         paint..color = stepColor,

@@ -26,13 +26,13 @@ class VerticalBar extends StatelessWidget {
                   currentStep: 2,
                   selectedColor: Colors.amber,
                   unselectedColor: Colors.black12,
-                  width: 10.0,
+                  size: 10.0,
                 ),
                 StepProgressIndicator(
                   totalSteps: 25,
                   direction: Axis.vertical,
                   customColor: (index) => Colors.deepOrange,
-                  customStep: (index, color) => Icon(
+                  customStep: (index, color, _) => Icon(
                     Icons.tag_faces,
                     color: color,
                   ),
@@ -41,9 +41,9 @@ class VerticalBar extends StatelessWidget {
                   totalSteps: 10,
                   direction: Axis.vertical,
                   padding: 6.0,
-                  width: 30.0,
+                  size: 30.0,
                   customColor: (index) => Colors.lightBlue,
-                  customStep: (index, color) => Container(
+                  customStep: (index, color, _) => Container(
                     color: color,
                     alignment: Alignment.center,
                     child: Text('$index'),
@@ -53,10 +53,10 @@ class VerticalBar extends StatelessWidget {
                   totalSteps: 20,
                   direction: Axis.vertical,
                   padding: 3.0,
-                  width: 40.0,
+                  size: 40.0,
                   progressDirection: TextDirection.rtl,
                   customColor: (index) => Colors.lightGreen,
-                  customStep: (index, color) => Container(
+                  customStep: (index, color, _) => Container(
                     color: color,
                     alignment: Alignment.center,
                     child: Text('$index'),
