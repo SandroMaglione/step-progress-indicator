@@ -234,12 +234,13 @@ class StepProgressIndicator extends StatelessWidget {
   /// Compute the maximum possible size of the indicator between
   /// [size], [selectedSize], [unselectedSize], and [customSize]
   double get maxDefinedSize {
-    double currentMaxSize =
-        max(size, max(selectedSize ?? 0, unselectedSize ?? 0));
-
+    // If customSize not defined, use size, selectedSize, unselectedSize
     if (customSize == null) {
-      return currentMaxSize;
+      return max(size, max(selectedSize ?? 0, unselectedSize ?? 0));
     }
+
+    // When customSize defined, compute max possible size
+    double currentMaxSize = 0;
 
     for (int step = 0; step < totalSteps; ++step) {
       final customSizeValue = customSize(step);
