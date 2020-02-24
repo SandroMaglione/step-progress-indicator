@@ -319,10 +319,10 @@ class StepProgressIndicator extends StatelessWidget {
         padding: padding,
         color: isLtr ? selectedColor : unselectedColor,
         width: isHorizontal
-            ? firstStepLength
+            ? isLtr ? firstStepLength : secondStepLength
             : isLtr ? selectedSize ?? size : unselectedSize ?? size,
         height: !isHorizontal
-            ? firstStepLength
+            ? isLtr ? firstStepLength : secondStepLength
             : isLtr ? selectedSize ?? size : unselectedSize ?? size,
       ),
     );
@@ -334,10 +334,10 @@ class StepProgressIndicator extends StatelessWidget {
         padding: padding,
         color: !isLtr ? selectedColor : unselectedColor,
         width: isHorizontal
-            ? secondStepLength
+            ? isLtr ? secondStepLength : firstStepLength
             : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
         height: !isHorizontal
-            ? secondStepLength
+            ? isLtr ? secondStepLength : firstStepLength
             : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
       ),
     );
@@ -358,7 +358,7 @@ class StepProgressIndicator extends StatelessWidget {
     // Add steps to the list, based on the progressDirection attribute
     for (; isLtr ? step < totalSteps : step >= 0; isLtr ? ++step : --step) {
       // currentStep = 6, then 6 selected and 4 not selected
-      final loopStep = isLtr ? step + 1 : totalSteps - step;
+      final loopStep = isLtr ? step + 1 : totalSteps - step - 1;
 
       // customColor if not null, otherwise selected or unselected color
       final stepColor = _chooseStepColor(loopStep, step);

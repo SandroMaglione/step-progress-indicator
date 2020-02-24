@@ -162,9 +162,9 @@ StepProgressIndicator(
 
 | Parameter       	| Type | Description | Default |
 |-------------------|------|-------------|---------|
-| totalSteps    | `int` | Total number of step of the complete indicator. | `@required` |
-| currentStep 	| `int` | Number of steps to underline, all the steps with index <= currentStep will have Color equal to selectedColor. | 0 |
-| customStep`(int, Color, double)` | `Widget` | Defines a custom Widget to display at each step, given the current step index, the Color, which could be defined with selectedColor and unselectedColor or using customColor, and its size, which could be defined using size, selectedSize, unselectedSize, or customSize. | - |
+| **totalSteps**    | `int` | Total number of step of the complete indicator. | **`@required`** |
+| currentStep 	| `int` | Number of steps to underline, all the steps with index <= `currentStep` will have Color equal to `selectedColor`. | 0 |
+| customStep`(int, Color, double)` | `Widget` | Defines a custom Widget to display at each step, given the current step index, the Color, which could be defined with `selectedColor` and `unselectedColor` or using `customColor`, and its size, which could be defined using `size`, `selectedSize`, `unselectedSize`, or `customSize`. | - |
 | onTap`(int)`         	| `void Function()` | Defines onTap function given index of the pressed step. | - |
 | customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
 | customSize`(int)`         	| `double` | Assign a custom size for each step. | - |
@@ -173,7 +173,7 @@ StepProgressIndicator(
 | direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
 | progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
 | Size   | `double` | Size of the indicator (height if `direction` is `Axis.horizontal`, width if `Axis.vertical`). | 4.0 |
-| padding         	| `double` | Spacing between each step. | 2.0 |
+| padding         	| `double` | Spacing, left-right if horizontal, top-bottom if vertical, of each step. | 2.0 |
 | fallbackLength         	| `double` | Length of the progress indicator in case the main axis (based on `direction` attribute) has no size limit i.e. `double.infinity`. | 100.0 |
 | selectedSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedSize         	| `double` | Specify a custom size for unselected steps. | - |
