@@ -377,6 +377,7 @@ class _CircularIndicatorPainter implements CustomPainter {
   bool shouldRebuildSemantics(CustomPainter oldDelegate) => false;
 }
 
+/// Used to define the [circularDirection] attribute of the [CircularStepProgressIndicator]
 enum CircularDirection {
   clockwise,
   counterclockwise,
