@@ -39,6 +39,7 @@ Horizontal             |  Vertical
 Circular1             |  Circular2
 :-------------------------:|:-------------------------:
 ![Circular step progress indicator screen 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen3.png)  |  ![Circular step progress indicator screen 2](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen4.png)
+![Circular step progress indicator screen 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/circular_step_progress_indicator/circular_animation1.gif)  |
 
 ---
 
@@ -286,6 +287,7 @@ CircularStepProgressIndicator(
 | selectedSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedSize         	| `double` | Specify a custom size for unselected steps. | - |
 
+---
 
 ## CircularStepProgressIndicator Parameters
 
