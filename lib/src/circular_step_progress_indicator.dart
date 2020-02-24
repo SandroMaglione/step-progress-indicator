@@ -1,5 +1,7 @@
 library circular_step_progress_indicator;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -70,6 +72,20 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// Default value: 6.0
   final double stepSize;
 
+  /// Specify a custom size for selected steps
+  ///
+  /// Only applicable when not custom setting (customColor, customStepSize) is defined
+  ///
+  /// This value will replace the [stepSize] only for selected steps
+  final double selectedStepSize;
+
+  /// Specify a custom size for unselected steps
+  ///
+  /// Only applicable when not custom setting (customColor, customStepSize) is defined
+  ///
+  /// This value will replace the [stepSize] only for unselected steps
+  final double unselectedStepSize;
+
   /// Assign a custom size [double] for each step
   ///
   /// Function takes a [int], index of the current step starting from 0, and
@@ -111,6 +127,8 @@ class CircularStepProgressIndicator extends StatelessWidget {
     this.width,
     this.customColor,
     this.customStepSize,
+    this.selectedStepSize,
+    this.unselectedStepSize,
     this.circularDirection = CircularDirection.clockwise,
     this.fallbackHeight = 100.0,
     this.fallbackWidth = 100.0,
@@ -158,6 +176,8 @@ class CircularStepProgressIndicator extends StatelessWidget {
             stepSize: stepSize,
             customStepSize: customStepSize,
             maxDefinedSize: maxDefinedSize,
+            selectedStepSize: selectedStepSize,
+            unselectedStepSize: unselectedStepSize,
           ),
           // Padding needed to show the indicator when child is placed on top of it
           child: Padding(
@@ -173,7 +193,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// [stepSize] and [customStepSize]
   double get maxDefinedSize {
     if (customStepSize == null) {
-      return stepSize;
+      return max(stepSize, max(selectedStepSize ?? 0, unselectedStepSize ?? 0));
     }
 
     // When customSize defined, compute and return max possible size
@@ -197,6 +217,8 @@ class _CircularIndicatorPainter implements CustomPainter {
   final Color selectedColor;
   final Color unselectedColor;
   final double stepSize;
+  final double selectedStepSize;
+  final double unselectedStepSize;
   final double Function(int) customStepSize;
   final double maxDefinedSize;
   final Color Function(int) customColor;
@@ -212,6 +234,8 @@ class _CircularIndicatorPainter implements CustomPainter {
     @required this.unselectedColor,
     @required this.padding,
     @required this.stepSize,
+    @required this.selectedStepSize,
+    @required this.unselectedStepSize,
     @required this.customStepSize,
     @required this.startingAngle,
     @required this.maxDefinedSize,
@@ -258,19 +282,19 @@ class _CircularIndicatorPainter implements CustomPainter {
     for (var stepAngle = startingAngle, step = 0;
         step < totalSteps;
         stepAngle += stepLength, ++step) {
+      final isSelectedColor = _isSelectedColor(step, isClockwise);
+
       // Size of the step
       final indexStepSize = customStepSize != null
           ? customStepSize(isClockwise ? step : totalSteps - step - 1)
-          : stepSize;
+          : isSelectedColor
+              ? selectedStepSize ?? stepSize
+              : unselectedStepSize ?? stepSize;
 
       // Use customColor if defined
       final stepColor = customColor != null
           ? customColor(step)
-          : isClockwise
-              ? (step + 1) <= currentStep ? selectedColor : unselectedColor
-              : (step + 1) <= (totalSteps - currentStep)
-                  ? unselectedColor
-                  : selectedColor;
+          : isSelectedColor ? selectedColor : unselectedColor;
 
       // Draw arc steps of the indicator
       canvas.drawArc(
@@ -292,6 +316,14 @@ class _CircularIndicatorPainter implements CustomPainter {
     final firstStepColor = isClockwise ? selectedColor : unselectedColor;
     final secondStepColor = !isClockwise ? selectedColor : unselectedColor;
 
+    // Selected and unselected step sizes if defined, otherwise use stepSize
+    final firstStepSize = isClockwise
+        ? selectedStepSize ?? stepSize
+        : unselectedStepSize ?? stepSize;
+    final secondStepSize = !isClockwise
+        ? selectedStepSize ?? stepSize
+        : unselectedStepSize ?? stepSize;
+
     // Compute length and starting angle of the selected and unselected bars
     final firstArcLength = (math.pi * 2) * (currentStep / totalSteps);
     final secondArcLength = (math.pi * 2) - firstArcLength;
@@ -305,7 +337,9 @@ class _CircularIndicatorPainter implements CustomPainter {
       startingAngle,
       firstArcLength,
       false /*isRadial*/,
-      paint..color = firstStepColor,
+      paint
+        ..color = firstStepColor
+        ..strokeWidth = firstStepSize,
     );
 
     // Second arc, selected when counterclockwise, unselected otherwise
@@ -314,9 +348,15 @@ class _CircularIndicatorPainter implements CustomPainter {
       secondArcStartingAngle,
       secondArcLength,
       false /*isRadial*/,
-      paint..color = secondStepColor,
+      paint
+        ..color = secondStepColor
+        ..strokeWidth = secondStepSize,
     );
   }
+
+  bool _isSelectedColor(int step, bool isClockwise) => isClockwise
+      ? (step + 1) <= currentStep
+      : (step + 1) > (totalSteps - currentStep);
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => oldDelegate != this;

@@ -21,20 +21,59 @@ class CircularBar1 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    CircularStepProgressIndicator(
-                      totalSteps: 10,
-                      currentStep: 6,
-                      width: 100,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        CircularStepProgressIndicator(
+                          totalSteps: 10,
+                          currentStep: 6,
+                          width: 100,
+                        ),
+                        CircularStepProgressIndicator(
+                          totalSteps: 12,
+                          currentStep: 6,
+                          selectedColor: Colors.redAccent,
+                          unselectedColor: Colors.grey[200],
+                          selectedStepSize: 10.0,
+                          width: 100,
+                        ),
+                        CircularStepProgressIndicator(
+                          totalSteps: 20,
+                          currentStep: 6,
+                          padding: math.pi / 15,
+                          selectedColor: Colors.cyan,
+                          unselectedColor: Colors.yellowAccent,
+                          selectedStepSize: 3.0,
+                          unselectedStepSize: 9.0,
+                          width: 100,
+                        ),
+                      ],
                     ),
-                    CircularStepProgressIndicator(
-                      totalSteps: 30,
-                      currentStep: 12,
-                      stepSize: 20,
-                      selectedColor: Colors.red,
-                      unselectedColor: Colors.grey[200],
-                      padding: math.pi / 80,
-                      width: 150,
-                      height: 150,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        CircularStepProgressIndicator(
+                          totalSteps: 30,
+                          currentStep: 12,
+                          stepSize: 20,
+                          selectedColor: Colors.red,
+                          unselectedColor: Colors.grey[200],
+                          padding: math.pi / 80,
+                          width: 150,
+                          height: 150,
+                        ),
+                        CircularStepProgressIndicator(
+                          totalSteps: 100,
+                          currentStep: 74,
+                          stepSize: 10,
+                          selectedColor: Colors.greenAccent,
+                          unselectedColor: Colors.grey[200],
+                          padding: 0,
+                          width: 150,
+                          height: 150,
+                          selectedStepSize: 15,
+                        ),
+                      ],
                     ),
                     CircularStepProgressIndicator(
                       totalSteps: 100,

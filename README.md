@@ -35,6 +35,11 @@ Horizontal             |  Vertical
 :-------------------------:|:-------------------------:
 ![Horizontal indicator screen](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png)  |  ![Vertical indicator screen](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png)
 
+
+Circular1             |  Circular2
+:-------------------------:|:-------------------------:
+![Circular step progress indicator screen 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen3.png)  |  ![Circular step progress indicator screen 2](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen4.png)
+
 ---
 
 ## Examples
@@ -158,7 +163,110 @@ StepProgressIndicator(
 
 ---
 
-## Parameters
+#### CircularStepProgressIndicator - Example 1
+![Circular Step Progress Indicator - Example 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/circular_step_progress_indicator/circular_bar_example1.png)
+
+```dart
+Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: <Widget>[
+        CircularStepProgressIndicator(
+            totalSteps: 10,
+            currentStep: 6,
+            width: 100,
+        ),
+        CircularStepProgressIndicator(
+            totalSteps: 12,
+            currentStep: 6,
+            selectedColor: Colors.redAccent,
+            unselectedColor: Colors.grey[200],
+            selectedStepSize: 10.0,
+            width: 100,
+        ),
+        CircularStepProgressIndicator(
+            totalSteps: 20,
+            currentStep: 6,
+            padding: math.pi / 15,
+            selectedColor: Colors.cyan,
+            unselectedColor: Colors.yellowAccent,
+            selectedStepSize: 3.0,
+            unselectedStepSize: 9.0,
+            width: 100,
+        ),
+    ],
+)
+```
+
+#### CircularStepProgressIndicator - Example 2
+![Circular Step Progress Indicator - Example 2](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/circular_step_progress_indicator/circular_bar_example2.png)
+
+```dart
+Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: <Widget>[
+        CircularStepProgressIndicator(
+            totalSteps: 30,
+            currentStep: 12,
+            stepSize: 20,
+            selectedColor: Colors.red,
+            unselectedColor: Colors.grey[200],
+            padding: math.pi / 80,
+            width: 150,
+            height: 150,
+        ),
+        CircularStepProgressIndicator(
+            totalSteps: 100,
+            currentStep: 74,
+            stepSize: 10,
+            selectedColor: Colors.greenAccent,
+            unselectedColor: Colors.grey[200],
+            padding: 0,
+            width: 150,
+            height: 150,
+            selectedStepSize: 15,
+        ),
+    ],
+)
+```
+
+#### CircularStepProgressIndicator - Example 3
+![Circular Step Progress Indicator - Example 3](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/circular_step_progress_indicator/circular_bar_example3.png)
+
+```dart
+CircularStepProgressIndicator(
+    totalSteps: 100,
+    currentStep: 72,
+    selectedColor: Colors.yellow,
+    unselectedColor: Colors.lightBlue,
+    padding: 0,
+    width: 100,
+    child: Icon(
+        Icons.tag_faces,
+        color: Colors.red,
+        size: 84,
+    ),
+)
+```
+
+#### CircularStepProgressIndicator - Example 4
+![Circular Step Progress Indicator - Example 4](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/circular_step_progress_indicator/circular_bar_example4.png)
+
+```dart
+CircularStepProgressIndicator(
+    totalSteps: 20,
+    stepSize: 20,
+    customColor: (index) => index % 3 == 0
+        ? Colors.deepPurple
+        : index % 2 == 0
+            ? Colors.deepOrange
+            : Colors.grey[100],
+    width: 250,
+)
+```
+
+---
+
+## StepProgressIndicator Parameters
 
 | Parameter       	| Type | Description | Default |
 |-------------------|------|-------------|---------|
@@ -172,13 +280,38 @@ StepProgressIndicator(
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
 | direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
 | progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
-| Size   | `double` | Size of the indicator (height if `direction` is `Axis.horizontal`, width if `Axis.vertical`). | 4.0 |
+| size   | `double` | Size of the indicator (height if `direction` is `Axis.horizontal`, width if `Axis.vertical`). | 4.0 |
 | padding         	| `double` | Spacing, left-right if horizontal, top-bottom if vertical, of each step. | 2.0 |
 | fallbackLength         	| `double` | Length of the progress indicator in case the main axis (based on `direction` attribute) has no size limit i.e. `double.infinity`. | 100.0 |
 | selectedSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedSize         	| `double` | Specify a custom size for unselected steps. | - |
 
-## Ideas
+
+## CircularStepProgressIndicator Parameters
+
+| Parameter       	| Type | Description | Default |
+|-------------------|------|-------------|---------|
+| **totalSteps**    | `int` | Total number of step of the complete indicator. | **`@required`** |
+| currentStep 	| `int` | Number of steps to underline, all the steps with index <= `currentStep` will have Color equal to `selectedColor`. | 0 |
+| child         	| `Widget` | Widget child contained inside the indicator. | - |
+| selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
+| unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
+| customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
+| customStepSize`(int)`         	| `double` | Assign a custom size for each step. | - |
+| selectedStepSize         	| `double` | Specify a custom size for selected steps. | - |
+| unselectedStepSize         	| `double` | Specify a custom size for unselected steps. | - |
+| circularDirection         	| `TextDirection` | Defines if steps grow clockwise (`CircularDirection.clockwise`) or counterclockwise (`CircularDirection.counterclockwise`) | `CircularDirection.clockwise` |
+| stepSize   | `double` | Size of the each step of the indicator. | 6.0 |
+| height   | `double` | Height of the indicator's container. | - |
+| width   | `double` | Width of the indicator's container. | - |
+| padding         	| `double` | Spacing between each step. | `math.pi / 20` |
+| startingAngle      | `double` | Angle in which is placed the starting point of the indicator. | `-math.pi / 2` |
+| fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
+| fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |
+
+---
+
+## Roadmap
 I am always open for suggestions and ideas for possible improvements or fixes.
 
 Here below a list of coming/future improvements:
