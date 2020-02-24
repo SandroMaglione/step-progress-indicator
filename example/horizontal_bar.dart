@@ -38,6 +38,14 @@ class HorizontalBar extends StatelessWidget {
                       unselectedColor: Colors.transparent,
                     ),
                     StepProgressIndicator(
+                      totalSteps: 100,
+                      currentStep: 32,
+                      size: 6,
+                      padding: 0,
+                      selectedColor: Colors.yellow,
+                      unselectedColor: Colors.cyan,
+                    ),
+                    StepProgressIndicator(
                       totalSteps: 12,
                       currentStep: 4,
                       padding: 6.0,

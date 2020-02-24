@@ -1,7 +1,7 @@
 # Step Progress Indicator
 <p>
-  <img src="https://img.shields.io/badge/version-0.1.1%2B2-blue.svg" />
-  <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.5-blue.svg" />
+  <img src="https://img.shields.io/badge/version-0.2.0%2B3-blue.svg" />
+  <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.8-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
   </a>
@@ -23,14 +23,23 @@ Check out the official dartdoc for the package [here](https://pub.dev/documentat
 ## Screenshots
 Install and import the package. Then just customize its parameters.
 
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  step_progress_indicator: ^0.2.0+3
+```
+---
+
 Horizontal             |  Vertical
 :-------------------------:|:-------------------------:
 ![Horizontal indicator screen](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen1.png)  |  ![Vertical indicator screen](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/screen2.png)
 
+---
 
 ## Examples
 
-### StepProgressIndicator - Example 1
+#### StepProgressIndicator - Example 1
 ![Step Progress Indicator - Example 1](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example1.png)
 
 ```dart
@@ -39,7 +48,7 @@ StepProgressIndicator(
 )
 ```
 
-### StepProgressIndicator - Example 2
+#### StepProgressIndicator - Example 2
 ![Step Progress Indicator - Example 2](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example2.png)
 
 ```dart
@@ -51,7 +60,7 @@ StepProgressIndicator(
 )
 ```
 
-### StepProgressIndicator - Example 3
+#### StepProgressIndicator - Example 3
 ![Step Progress Indicator - Example 3](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example3.png)
 
 ```dart
@@ -64,8 +73,22 @@ StepProgressIndicator(
 )
 ```
 
-### StepProgressIndicator - Example 4
+#### StepProgressIndicator - Example 4
 ![Step Progress Indicator - Example 4](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example4.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 100,
+    currentStep: 32,
+    size: 6,
+    padding: 0,
+    selectedColor: Colors.yellow,
+    unselectedColor: Colors.cyan,
+)
+```
+
+#### StepProgressIndicator - Example 5
+![Step Progress Indicator - Example 5](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example5.png)
 
 ```dart
 StepProgressIndicator(
@@ -79,8 +102,8 @@ StepProgressIndicator(
 )
 ```
 
-### StepProgressIndicator - Example 5
-![Step Progress Indicator - Example 5](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example5.png)
+#### StepProgressIndicator - Example 6
+![Step Progress Indicator - Example 6](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example6.png)
 
 ```dart
 StepProgressIndicator(
@@ -93,8 +116,8 @@ StepProgressIndicator(
 )
 ```
 
-### StepProgressIndicator - Example 6
-![Step Progress Indicator - Example 6](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example6.png)
+#### StepProgressIndicator - Example 7
+![Step Progress Indicator - Example 7](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example7.png)
 
 ```dart
 StepProgressIndicator(
@@ -120,8 +143,8 @@ StepProgressIndicator(
 )
 ```
 
-### StepProgressIndicator - Example 7
-![Step Progress Indicator - Example 7](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example7.png)
+#### StepProgressIndicator - Example 8
+![Step Progress Indicator - Example 8](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example8.png)
 
 ```dart
 StepProgressIndicator(
@@ -133,7 +156,7 @@ StepProgressIndicator(
 )
 ```
 
-
+---
 
 ## Parameters
 
@@ -141,16 +164,19 @@ StepProgressIndicator(
 |-------------------|------|-------------|---------|
 | totalSteps    | `int` | Total number of step of the complete indicator. | `@required` |
 | currentStep 	| `int` | Number of steps to underline, all the steps with index <= currentStep will have Color equal to selectedColor. | 0 |
-| customStep`(int, Color)` | `Widget` | Defines a custom Widget to display at each step, given the current step index and the Color, which could be defined with selectedColor and unselectedColor or using customColor. | - |
+| customStep`(int, Color, double)` | `Widget` | Defines a custom Widget to display at each step, given the current step index, the Color, which could be defined with selectedColor and unselectedColor or using customColor, and its size, which could be defined using size, selectedSize, unselectedSize, or customSize. | - |
 | onTap`(int)`         	| `void Function()` | Defines onTap function given index of the pressed step. | - |
 | customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
-| direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
-| progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
-| height         	| `double` | Height of the indicator. | 4.0 |
-| width         	| `double` | Width of the indicator. | 4.0 |
+| customSize`(int)`         	| `double` | Assign a custom size for each step. | - |
 | selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
+| direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
+| progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
+| Size   | `double` | Size of the indicator (height if `direction` is `Axis.horizontal`, width if `Axis.vertical`). | 4.0 |
 | padding         	| `double` | Spacing between each step. | 2.0 |
+| fallbackLength         	| `double` | Length of the progress indicator in case the main axis (based on `direction` attribute) has no size limit i.e. `double.infinity`. | 100.0 |
+| selectedSize         	| `double` | Specify a custom size for selected steps. | - |
+| unselectedSize         	| `double` | Specify a custom size for unselected steps. | - |
 
 ## Ideas
 I am always open for suggestions and ideas for possible improvements or fixes.
@@ -163,4 +189,4 @@ Here below a list of coming/future improvements:
 - v0.1.0+1 - 23 January 2020
 
 ## License
-GNU General Public License v3.0, see the [LICENSE.md](https://github.com/SandroMaglione/k-means-visualization/blob/master/LICENSE) file for details.
+GNU General Public License v3.0, see the [LICENSE.md](https://github.com/SandroMaglione/step-progress-indicator/blob/master/LICENSE) file for details.
