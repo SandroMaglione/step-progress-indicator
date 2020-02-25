@@ -1,3 +1,6 @@
+## [0.2.1+4] - 25 Febraury 2020
+- Updated LICENSE, from GPL3 to MIT
+
 ## [0.2.0+3] - 24 Febraury 2020
 - Added **CircularStepProgressIndicator**
 - Added optimized support for **Continuous Progress Indicators** (by setting `padding` to 0 and not using custom attributes)

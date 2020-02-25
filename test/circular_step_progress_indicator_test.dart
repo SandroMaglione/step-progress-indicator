@@ -4,7 +4,6 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 void main() {
   final int tTotalSteps = 10;
-  final int tCurrentStep = 6;
 
   final double tWidth = 200;
   final double tHeight = 200;
