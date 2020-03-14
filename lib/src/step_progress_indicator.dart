@@ -418,21 +418,23 @@ class _ProgressStep extends StatelessWidget {
         horizontal: direction == Axis.horizontal ? padding : 0.0,
         vertical: direction == Axis.vertical ? padding : 0.0,
       ),
-      child: GestureDetector(
-        onTap: onTap,
-        // Container (simple rectangle) when no customStep defined
-        // SizedBox containing the customStep otherwise
-        child: customStep == null
-            ? Container(
-                width: width,
-                height: height,
-                color: color,
-              )
-            : SizedBox(
-                width: width,
-                height: height,
-                child: customStep,
-              ),
+      child: Material(
+        color: color,
+        child: InkWell(
+          onTap: onTap,
+          // Container (simple rectangle) when no customStep defined
+          // SizedBox containing the customStep otherwise
+          child: customStep == null
+              ? Container(
+                  width: width,
+                  height: height,
+                )
+              : SizedBox(
+                  width: width,
+                  height: height,
+                  child: customStep,
+                ),
+        ),
       ),
     );
   }
