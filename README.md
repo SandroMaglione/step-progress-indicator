@@ -1,6 +1,6 @@
 # Step Progress Indicator
 <p>
-  <img src="https://img.shields.io/badge/version-0.2.2%2B3-blue.svg" />
+  <img src="https://img.shields.io/badge/version-0.2.2%2B5-blue.svg" />
   <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.9-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
