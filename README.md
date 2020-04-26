@@ -1,7 +1,7 @@
 # Step Progress Indicator
 <p>
-  <img src="https://img.shields.io/badge/version-0.2.0%2B3-blue.svg" />
-  <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.8-blue.svg" />
+  <img src="https://img.shields.io/badge/version-0.2.2%2B3-blue.svg" />
+  <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.9-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
   </a>
@@ -27,7 +27,7 @@ Install and import the package. Then just customize its parameters.
 dependencies:
   flutter:
     sdk: flutter
-  step_progress_indicator: ^0.2.0+3
+  step_progress_indicator: ^0.2.2+5
 ```
 ---
 
@@ -84,17 +84,32 @@ StepProgressIndicator(
 
 ```dart
 StepProgressIndicator(
-    totalSteps: 100,
-    currentStep: 32,
-    size: 6,
-    padding: 0,
-    selectedColor: Colors.yellow,
-    unselectedColor: Colors.cyan,
-)
+    totalSteps: 15,
+    currentStep: 12,
+    size: 20,
+    selectedColor: Colors.amber,
+    unselectedColor: Colors.black,
+    roundedEdges: Radius.circular(10),
+),
 ```
 
 #### StepProgressIndicator - Example 5
 ![Step Progress Indicator - Example 5](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example5.png)
+
+```dart
+StepProgressIndicator(
+    totalSteps: 100,
+    currentStep: 32,
+    size: 8,
+    padding: 0,
+    selectedColor: Colors.yellow,
+    unselectedColor: Colors.cyan,
+    roundedEdges: Radius.circular(10),
+),
+```
+
+#### StepProgressIndicator - Example 6
+![Step Progress Indicator - Example 6](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example6.png)
 
 ```dart
 StepProgressIndicator(
@@ -108,8 +123,8 @@ StepProgressIndicator(
 )
 ```
 
-#### StepProgressIndicator - Example 6
-![Step Progress Indicator - Example 6](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example6.png)
+#### StepProgressIndicator - Example 7
+![Step Progress Indicator - Example 7](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example7.png)
 
 ```dart
 StepProgressIndicator(
@@ -122,8 +137,8 @@ StepProgressIndicator(
 )
 ```
 
-#### StepProgressIndicator - Example 7
-![Step Progress Indicator - Example 7](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example7.png)
+#### StepProgressIndicator - Example 8
+![Step Progress Indicator - Example 8](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example8.png)
 
 ```dart
 StepProgressIndicator(
@@ -149,8 +164,8 @@ StepProgressIndicator(
 )
 ```
 
-#### StepProgressIndicator - Example 8
-![Step Progress Indicator - Example 8](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example8.png)
+#### StepProgressIndicator - Example 9
+![Step Progress Indicator - Example 9](https://raw.githubusercontent.com/SandroMaglione/step-progress-indicator/master/doc/screenshots/step_progress_indicator/linear_bar_example9.png)
 
 ```dart
 StepProgressIndicator(
@@ -286,6 +301,7 @@ CircularStepProgressIndicator(
 | fallbackLength         	| `double` | Length of the progress indicator in case the main axis (based on `direction` attribute) has no size limit i.e. `double.infinity`. | 100.0 |
 | selectedSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedSize         	| `double` | Specify a custom size for unselected steps. | - |
+| roundedEdges         	| `Radius` | Add rounded edge corners to first and last step. | - |
 
 ---
 
@@ -316,10 +332,13 @@ CircularStepProgressIndicator(
 ## Roadmap
 I am always open for suggestions and ideas for possible improvements or fixes.
 
-Here below a list of coming/future improvements:
-- Adding support for animations
+Feel free to open a Pull request if you would like to contribute to the project.
+
+If you would like to have a new feature implemented, just write a new issue.
 
 ## Versioning
+- v0.2.2+5 - 26 April 2020
+- v0.2.1+4 - 25 February 2020
 - v0.2.0+3 - 24 February 2020
 - v0.1.1+2 - 24 January 2020
 - v0.1.0+1 - 23 January 2020

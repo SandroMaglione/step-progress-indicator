@@ -1,3 +1,8 @@
+## [0.2.2+5] - 26 April 2020
+- Added material ripple effect on step tap (Thanks to [@rodineijf](https://github.com/rodineijf) for his contribution ([#1](https://github.com/SandroMaglione/step-progress-indicator/pull/1)))
+- Implemented `roundedEdges` property to add rounded edge corners to first and last step of the indicator ([#2](https://github.com/SandroMaglione/step-progress-indicator/issues/2))
+- Updated and improved documentation and [examples](https://github.com/SandroMaglione/step-progress-indicator/tree/master/example)
+
 ## [0.2.1+4] - 25 Febraury 2020
 - Updated LICENSE, from GPL3 to MIT
 
