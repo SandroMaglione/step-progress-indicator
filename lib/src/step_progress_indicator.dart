@@ -151,6 +151,9 @@ class StepProgressIndicator extends StatelessWidget {
   /// Default value: 100.0
   final double fallbackLength;
 
+  /// Added rounded corners to the first and last step of the indicator
+  final Radius roundedEdges;
+
   StepProgressIndicator({
     @required this.totalSteps,
     this.customStep,
@@ -159,6 +162,7 @@ class StepProgressIndicator extends StatelessWidget {
     this.customSize,
     this.selectedSize,
     this.unselectedSize,
+    this.roundedEdges,
     this.direction = Axis.horizontal,
     this.progressDirection = TextDirection.ltr,
     this.size = 4.0,
@@ -324,6 +328,8 @@ class StepProgressIndicator extends StatelessWidget {
         height: !isHorizontal
             ? isLtr ? firstStepLength : secondStepLength
             : isLtr ? selectedSize ?? size : unselectedSize ?? size,
+        roundedEdges: roundedEdges,
+        isFirstStep: true,
       ),
     );
 
@@ -339,6 +345,8 @@ class StepProgressIndicator extends StatelessWidget {
         height: !isHorizontal
             ? isLtr ? secondStepLength : firstStepLength
             : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
+        roundedEdges: roundedEdges,
+        isLastStep: true,
       ),
     );
 
@@ -381,6 +389,9 @@ class StepProgressIndicator extends StatelessWidget {
           customStep:
               customStep != null ? customStep(step, stepColor, stepSize) : null,
           onTap: onTap != null ? onTap(step) : null,
+          isFirstStep: step == 0,
+          isLastStep: step == totalSteps - 1,
+          roundedEdges: roundedEdges,
         ),
       );
     }
@@ -398,6 +409,9 @@ class _ProgressStep extends StatelessWidget {
   final double padding;
   final Widget customStep;
   final void Function() onTap;
+  final bool isFirstStep;
+  final bool isLastStep;
+  final Radius roundedEdges;
 
   const _ProgressStep({
     @required this.direction,
@@ -407,6 +421,9 @@ class _ProgressStep extends StatelessWidget {
     @required this.height,
     this.customStep,
     this.onTap,
+    this.isFirstStep = false,
+    this.isLastStep = false,
+    this.roundedEdges,
     Key key,
   }) : super(key: key);
 
@@ -418,24 +435,79 @@ class _ProgressStep extends StatelessWidget {
         horizontal: direction == Axis.horizontal ? padding : 0.0,
         vertical: direction == Axis.vertical ? padding : 0.0,
       ),
-      child: Material(
-        color: color,
-        child: InkWell(
-          onTap: onTap,
-          // Container (simple rectangle) when no customStep defined
-          // SizedBox containing the customStep otherwise
-          child: customStep == null
-              ? Container(
-                  width: width,
-                  height: height,
-                )
-              : SizedBox(
-                  width: width,
-                  height: height,
-                  child: customStep,
-                ),
-        ),
-      ),
+      // If first or last step and rounded edges enabled, apply
+      // rounded edges using ClipRRect
+      // Different corners based on first/last step and indicator's direction
+      // - First step + horizontal: top-left, bottom-left
+      // - First step + vertical: top-left, top-right
+      // - Last step + horizontal: top-right, bottom-right
+      // - Last step + vertical: bottom-left, bottom-right
+      child: (isFirstStep || isLastStep) && roundedEdges != null
+          ? ClipRRect(
+              borderRadius: isFirstStep
+                  ? direction == Axis.horizontal
+                      ? BorderRadius.only(
+                          topLeft: roundedEdges,
+                          bottomLeft: roundedEdges,
+                        )
+                      : BorderRadius.only(
+                          topLeft: roundedEdges,
+                          topRight: roundedEdges,
+                        )
+                  : isLastStep
+                      ? direction == Axis.horizontal
+                          ? BorderRadius.only(
+                              topRight: roundedEdges,
+                              bottomRight: roundedEdges,
+                            )
+                          : BorderRadius.only(
+                              bottomLeft: roundedEdges,
+                              bottomRight: roundedEdges,
+                            )
+                      : BorderRadius.zero,
+              child: _buildStep,
+            )
+          : _buildStep,
     );
   }
+
+  /// Build the actual single step [Widget]
+  Widget get _buildStep => onTap != null && customStep != null
+      ? Material(
+          color: color,
+          child: InkWell(
+            onTap: onTap,
+            // Container (simple rectangle) when no customStep defined
+            // SizedBox containing the customStep otherwise
+            child: _stepContainer(),
+          ),
+        )
+      : onTap == null && customStep != null
+          ? SizedBox(
+              width: width,
+              height: height,
+              child: GestureDetector(
+                onTap: onTap,
+                child: customStep,
+              ),
+            )
+          : _buildStepContainer;
+
+  /// Build [_stepContainer] based on input parameters:
+  /// - [Container] with background color when [customStep] is not defined
+  /// - [SizedBox] with [customStep] when defined
+  Widget get _buildStepContainer => customStep == null
+      ? _stepContainer(color)
+      : SizedBox(
+          width: width,
+          height: height,
+          child: customStep,
+        );
+
+  /// Single step [Container]
+  Widget _stepContainer([Color color]) => Container(
+        width: width,
+        height: height,
+        color: color,
+      );
 }
