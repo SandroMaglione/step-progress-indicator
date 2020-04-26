@@ -472,7 +472,7 @@ class _ProgressStep extends StatelessWidget {
   }
 
   /// Build the actual single step [Widget]
-  Widget get _buildStep => onTap != null && customStep != null
+  Widget get _buildStep => onTap != null && customStep == null
       ? Material(
           color: color,
           child: InkWell(
@@ -482,7 +482,7 @@ class _ProgressStep extends StatelessWidget {
             child: _stepContainer(),
           ),
         )
-      : onTap == null && customStep != null
+      : onTap != null && customStep != null
           ? SizedBox(
               width: width,
               height: height,

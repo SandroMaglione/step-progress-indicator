@@ -18,18 +18,19 @@ void main() {
           width: tWidth,
           child: StepProgressIndicator(
             totalSteps: tTotalSteps,
+            onTap: (_) => () {},
           ),
         ),
       ),
     );
 
-    // Build all the step (each step has a GestureDetector)
-    final steps = find.byType(GestureDetector);
+    // Build all the step
+    final steps = find.byType(Container);
 
-    // Find all the steps
+    // Find all the steps (plus the indicator container)
     expect(
       steps,
-      findsNWidgets(tTotalSteps),
+      findsNWidgets(tTotalSteps + 1),
     );
   });
 
@@ -174,12 +175,12 @@ void main() {
       ),
     );
 
-    // Build all the step (each step has a GestureDetector)
-    final steps = find.byType(GestureDetector);
+    // Build all the step
+    final steps = find.byType(Container);
 
-    // Find all the steps
+    // Find all the steps (skip the indicator container)
     expect(
-      steps.evaluate().map((element) => element.size.width),
+      steps.evaluate().skip(1).map((element) => element.size.width),
       List<double>.filled(tTotalSteps, tWidth),
     );
   });
@@ -201,12 +202,12 @@ void main() {
       ),
     );
 
-    // Build all the step (each step has a GestureDetector)
-    final steps = find.byType(GestureDetector);
+    // Build all the step
+    final steps = find.byType(Container);
 
-    // Find all the steps
+    // Find all the steps (skip the indicator container)
     expect(
-      steps.evaluate().map((element) => element.size.height),
+      steps.evaluate().skip(1).map((element) => element.size.height),
       List<double>.filled(tTotalSteps, tHeight),
     );
   });
@@ -229,13 +230,13 @@ void main() {
       ),
     );
 
-    // Build all the step (each step has a GestureDetector)
-    final steps = find.byType(GestureDetector);
+    // Build all the step
+    final steps = find.byType(Container);
 
-    // Find all the steps
+    // Find all the steps (plus the container of the indicator)
     expect(
       steps,
-      findsNWidgets(2),
+      findsNWidgets(3),
     );
   });
 
@@ -257,12 +258,12 @@ void main() {
       ),
     );
 
-    // Build all the step (each step has a GestureDetector)
-    final steps = find.byType(GestureDetector);
+    // Build all the step
+    final steps = find.byType(Container);
 
-    // Find all the steps
+    // Find all the steps (skip the indicator container)
     expect(
-      steps.evaluate().map((element) => element.size.width),
+      steps.evaluate().skip(1).map((element) => element.size.width),
       List<double>.filled(
           tTotalSteps, (tWidth - (tTotalSteps * 2.0 * 2)) / tTotalSteps),
     );
@@ -336,7 +337,7 @@ void main() {
       ),
     );
 
-    final steps = find.byType(GestureDetector);
+    final steps = find.byType(Container);
 
     expect(steps.evaluate().map((element) => element.size.height),
         List<double>.filled(tTotalSteps, 30.0));
@@ -361,7 +362,7 @@ void main() {
       ),
     );
 
-    final steps = find.byType(GestureDetector);
+    final steps = find.byType(Container);
 
     expect(steps.evaluate().map((element) => element.size.width),
         List<double>.filled(tTotalSteps, 30.0));
@@ -387,7 +388,7 @@ void main() {
       ),
     );
 
-    final steps = find.byType(GestureDetector);
+    final steps = find.byType(Container);
 
     expect(
       steps.evaluate().where((element) => element.size.height == 20).length,
@@ -459,7 +460,7 @@ void main() {
       ),
     );
 
-    final steps = find.byType(GestureDetector);
+    final steps = find.byType(Container);
 
     expect(
       steps.evaluate().where((element) => element.size.height == 20).length,
