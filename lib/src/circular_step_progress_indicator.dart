@@ -111,12 +111,16 @@ class CircularStepProgressIndicator extends StatelessWidget {
 
   /// Angle in radiants in which the first step of the indicator is placed.
   /// The initial value is on the top of the indicator (- math.pi / 2)
-  /// - \- math.pi / 2 => TOP
-  /// - 0 => RIGHT
-  /// - math.pi / 2 => BOTTOM
-  /// - math.pi => LEFT
-  /// - math.pi / 2 * 3 => TOP (again)
+  /// - 0 => TOP
+  /// - math.pi / 2 => LEFT
+  /// - math.pi => BOTTOM
+  /// - math.pi / 2 * 3 => RIGHT
+  /// - math.pi / 2 => TOP (again)
   final double startingAngle;
+
+  /// Angle in radiants which represents the size of the arc used to display the indicator.
+  /// It allows you to draw a semi-circle instead of a full 360° (math.pi * 2) circle.
+  final double arcSize;
 
   // TODO: final bool isRadial;
 
@@ -137,7 +141,8 @@ class CircularStepProgressIndicator extends StatelessWidget {
     this.unselectedColor = Colors.grey,
     this.padding = math.pi / 20,
     this.stepSize = 6.0,
-    this.startingAngle = -math.pi / 2,
+    this.startingAngle = 0,
+    this.arcSize = math.pi * 2,
     Key key,
   })  : assert(totalSteps > 0,
             "Number of total steps (totalSteps) of the CircularStepProgressIndicator must be greater than 0"),
@@ -149,6 +154,11 @@ class CircularStepProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Print warning when arcSize greater than math.pi * 2 which causes steps to overlap
+    if (arcSize > math.pi * 2)
+      print(
+          "WARNING (step_progress_indicator): arcSize of CircularStepProgressIndicator is greater than 360° (math.pi * 2), this will cause some steps to overlap!");
+
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
         // Apply fallback for both height and width
@@ -172,12 +182,13 @@ class CircularStepProgressIndicator extends StatelessWidget {
             circularDirection: circularDirection,
             selectedColor: selectedColor,
             unselectedColor: unselectedColor,
-            startingAngle: startingAngle,
+            arcSize: arcSize,
             stepSize: stepSize,
             customStepSize: customStepSize,
             maxDefinedSize: maxDefinedSize,
             selectedStepSize: selectedStepSize,
             unselectedStepSize: unselectedStepSize,
+            startingAngle: startingAngleTopOfIndicator,
           ),
           // Padding needed to show the indicator when child is placed on top of it
           child: Padding(
@@ -208,6 +219,9 @@ class CircularStepProgressIndicator extends StatelessWidget {
 
     return currentMaxSize;
   }
+
+  /// Make [startingAngle] to top-center of indicator (0°) by default
+  double get startingAngleTopOfIndicator => startingAngle - math.pi / 2;
 }
 
 class _CircularIndicatorPainter implements CustomPainter {
@@ -224,6 +238,7 @@ class _CircularIndicatorPainter implements CustomPainter {
   final Color Function(int) customColor;
   final CircularDirection circularDirection;
   final double startingAngle;
+  final double arcSize;
 
   _CircularIndicatorPainter({
     @required this.totalSteps,
@@ -238,6 +253,7 @@ class _CircularIndicatorPainter implements CustomPainter {
     @required this.unselectedStepSize,
     @required this.customStepSize,
     @required this.startingAngle,
+    @required this.arcSize,
     @required this.maxDefinedSize,
   });
 
@@ -246,9 +262,9 @@ class _CircularIndicatorPainter implements CustomPainter {
     final w = size.width;
     final h = size.height;
 
-    // Step length is the full circle length (2 * math.pi)
+    // Step length is user-defined arcSize
     // divided by the total number of steps (each step same size)
-    final stepLength = (2 * math.pi) / totalSteps;
+    final stepLength = arcSize / totalSteps;
 
     // Define general arc paint
     Paint paint = Paint()
@@ -274,7 +290,7 @@ class _CircularIndicatorPainter implements CustomPainter {
     }
   }
 
-  /// Draw a series of arc, each composing the full steps of the indicator
+  /// Draw a series of arcs, each composing the full steps of the indicator
   void _drawStepArc(Canvas canvas, Paint paint, Rect rect, bool isClockwise,
       double stepLength) {
     // Draw a series of circular arcs to compose the indicator
@@ -325,8 +341,8 @@ class _CircularIndicatorPainter implements CustomPainter {
         : unselectedStepSize ?? stepSize;
 
     // Compute length and starting angle of the selected and unselected bars
-    final firstArcLength = (math.pi * 2) * (currentStep / totalSteps);
-    final secondArcLength = (math.pi * 2) - firstArcLength;
+    final firstArcLength = arcSize * (currentStep / totalSteps);
+    final secondArcLength = arcSize - firstArcLength;
 
     // firstArcStartingAngle = startingAngle
     final secondArcStartingAngle = startingAngle + firstArcLength;
