@@ -1,7 +1,6 @@
 library step_progress_indicator;
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 /// (Linear) Progress indicator made of a series of steps

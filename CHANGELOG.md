@@ -1,3 +1,8 @@
+## [0.2.3+6] - 20 May 2020
+- Added `arcSize` property to `CircularStepProgressIndicator` that allows you to draw semi-circle indicators ([#3](https://github.com/SandroMaglione/step-progress-indicator/issues/3))
+- Adjusted default `startingAngle` to 0 instead of `-math.pi / 2` (**breaking change**)
+- Fixed imports and small issues
+
 ## [0.2.2+5] - 26 April 2020
 - Added material ripple effect on step tap (Thanks to [@rodineijf](https://github.com/rodineijf) for his contribution ([#1](https://github.com/SandroMaglione/step-progress-indicator/pull/1)))
 - Implemented `roundedEdges` property to add rounded edge corners to first and last step of the indicator ([#2](https://github.com/SandroMaglione/step-progress-indicator/issues/2))
@@ -25,4 +30,4 @@
 - [New tutorial article](http://www.sandromaglione.com/blog/2020/01/24/step-progress-indicator-flutter-package-tutorial/)
 
 ## [0.1.0+1] - 23 January 2020
-Initial release.
+Initial release

@@ -1,7 +1,5 @@
 library circular_step_progress_indicator;
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -204,7 +202,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// [stepSize] and [customStepSize]
   double get maxDefinedSize {
     if (customStepSize == null) {
-      return max(stepSize, max(selectedStepSize ?? 0, unselectedStepSize ?? 0));
+      return math.max(stepSize, math.max(selectedStepSize ?? 0, unselectedStepSize ?? 0));
     }
 
     // When customSize defined, compute and return max possible size

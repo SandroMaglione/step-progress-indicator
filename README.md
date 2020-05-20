@@ -1,7 +1,7 @@
 # Step Progress Indicator
 <p>
-  <img src="https://img.shields.io/badge/version-0.2.2%2B5-blue.svg" />
-  <img src="https://img.shields.io/badge/flutter-v1.12.13%2Bhotfix.9-blue.svg" />
+  <img src="https://img.shields.io/badge/version-0.2.3%2B6-blue.svg" />
+  <img src="https://img.shields.io/badge/flutter-v1.17.0-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
   </a>
@@ -27,7 +27,7 @@ Install and import the package. Then just customize its parameters.
 dependencies:
   flutter:
     sdk: flutter
-  step_progress_indicator: ^0.2.2+5
+  step_progress_indicator: ^0.2.3+6
 ```
 ---
 
@@ -220,29 +220,31 @@ Row(
 Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: <Widget>[
-        CircularStepProgressIndicator(
-            totalSteps: 30,
-            currentStep: 12,
-            stepSize: 20,
-            selectedColor: Colors.red,
-            unselectedColor: Colors.grey[200],
-            padding: math.pi / 80,
-            width: 150,
-            height: 150,
-        ),
-        CircularStepProgressIndicator(
-            totalSteps: 100,
-            currentStep: 74,
-            stepSize: 10,
-            selectedColor: Colors.greenAccent,
-            unselectedColor: Colors.grey[200],
-            padding: 0,
-            width: 150,
-            height: 150,
-            selectedStepSize: 15,
-        ),
+    CircularStepProgressIndicator(
+        totalSteps: 20,
+        currentStep: 12,
+        stepSize: 20,
+        selectedColor: Colors.red,
+        unselectedColor: Colors.purple[400],
+        padding: math.pi / 80,
+        width: 150,
+        height: 150,
+        startingAngle: -math.pi * 2 / 3,
+        arcSize: math.pi * 2 / 3 * 2,
+    ),
+    CircularStepProgressIndicator(
+        totalSteps: 100,
+        currentStep: 74,
+        stepSize: 10,
+        selectedColor: Colors.greenAccent,
+        unselectedColor: Colors.grey[200],
+        padding: 0,
+        width: 150,
+        height: 150,
+        selectedStepSize: 15,
+    ),
     ],
-)
+),
 ```
 
 #### CircularStepProgressIndicator - Example 3
@@ -323,7 +325,8 @@ CircularStepProgressIndicator(
 | height   | `double` | Height of the indicator's container. | - |
 | width   | `double` | Width of the indicator's container. | - |
 | padding         	| `double` | Spacing between each step. | `math.pi / 20` |
-| startingAngle      | `double` | Angle in which is placed the starting point of the indicator. | `-math.pi / 2` |
+| startingAngle    | `double` | Angle in which is placed the starting point of the indicator.| 0 |
+| arcSize      | `double` | Angle in radiants which represents the size of the arc used to display the indicator. | `math.pi * 2` |
 | fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
 | fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |
 
@@ -337,6 +340,7 @@ Feel free to open a Pull request if you would like to contribute to the project.
 If you would like to have a new feature implemented, just write a new issue.
 
 ## Versioning
+- v0.2.3+6 - 20 May 2020
 - v0.2.2+5 - 26 April 2020
 - v0.2.1+4 - 25 February 2020
 - v0.2.0+3 - 24 February 2020
@@ -344,4 +348,4 @@ If you would like to have a new feature implemented, just write a new issue.
 - v0.1.0+1 - 23 January 2020
 
 ## License
-GNU General Public License v3.0, see the [LICENSE.md](https://github.com/SandroMaglione/step-progress-indicator/blob/master/LICENSE) file for details.
+MIT License, see the [LICENSE.md](https://github.com/SandroMaglione/step-progress-indicator/blob/master/LICENSE) file for details.
