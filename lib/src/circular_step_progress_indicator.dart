@@ -87,10 +87,11 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// Assign a custom size [double] for each step
   ///
   /// Function takes a [int], index of the current step starting from 0, and
-  /// must return a [double] size of the step
+  /// a [bool], which tells if the step is selected based on [currentStep],
+  /// and must return a [double] size of the step
   ///
   /// If provided, it overrides [stepSize]
-  final double Function(int) customStepSize;
+  final double Function(int, bool) customStepSize;
 
   /// [Widget] contained inside the circular indicator
   final Widget child;
@@ -215,7 +216,9 @@ class CircularStepProgressIndicator extends StatelessWidget {
     double currentMaxSize = 0;
 
     for (int step = 0; step < totalSteps; ++step) {
-      final customSizeValue = customStepSize(step);
+      // Consider max between selected and unselected case
+      final customSizeValue =
+          math.max(customStepSize(step, false), customStepSize(step, true));
       if (customSizeValue > currentMaxSize) {
         currentMaxSize = customSizeValue;
       }
@@ -237,7 +240,7 @@ class _CircularIndicatorPainter implements CustomPainter {
   final double stepSize;
   final double selectedStepSize;
   final double unselectedStepSize;
-  final double Function(int) customStepSize;
+  final double Function(int, bool) customStepSize;
   final double maxDefinedSize;
   final Color Function(int) customColor;
   final CircularDirection circularDirection;
@@ -321,7 +324,8 @@ class _CircularIndicatorPainter implements CustomPainter {
       // Size of the step
       final indexStepSize = customStepSize != null
           // Consider step index inverted when counterclockwise
-          ? customStepSize(isClockwise ? step : totalSteps - step - 1)
+          ? customStepSize(
+              isClockwise ? step : totalSteps - step - 1, isSelectedColor)
           : isSelectedColor
               ? selectedStepSize ?? stepSize
               : unselectedStepSize ?? stepSize;
