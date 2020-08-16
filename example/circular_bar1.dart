@@ -74,6 +74,7 @@ class CircularBar1 extends StatelessWidget {
                           width: 150,
                           height: 150,
                           selectedStepSize: 15,
+                          roundedCap: true,
                         ),
                       ],
                     ),
