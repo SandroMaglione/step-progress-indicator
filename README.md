@@ -318,7 +318,7 @@ CircularStepProgressIndicator(
 | selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
 | customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
-| customStepSize`(int)`         	| `double` | Assign a custom size for each step. | - |
+| customStepSize`(int, bool)`         	| `double` | Assign a custom size for each step. | - |
 | selectedStepSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedStepSize         	| `double` | Specify a custom size for unselected steps. | - |
 | circularDirection         	| `TextDirection` | Defines if steps grow clockwise (`CircularDirection.clockwise`) or counterclockwise (`CircularDirection.counterclockwise`) | `CircularDirection.clockwise` |
@@ -327,7 +327,7 @@ CircularStepProgressIndicator(
 | width   | `double` | Width of the indicator's container. | - |
 | padding         	| `double` | Spacing between each step. | `math.pi / 20` |
 | startingAngle    | `double` | Angle in which is placed the starting point of the indicator.| 0 |
-| roundedCap    | `bool Function(int)` | Adds rounded edges at the beginning and at the end of the selected indicator given the index of each step. | `(_) => false` |
+| roundedCap`(int)`     | `bool` | Adds rounded edges at the beginning and at the end of the selected indicator given the index of each step. | `(_) => false` |
 | arcSize      | `double` | Angle in radiants which represents the size of the arc used to display the indicator. | `math.pi * 2` |
 | fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
 | fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |
