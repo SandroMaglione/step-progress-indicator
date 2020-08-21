@@ -121,8 +121,14 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// It allows you to draw a semi-circle instead of a full 360° (math.pi * 2) circle.
   final double arcSize;
 
-  /// Added rounded cap at the beginning and at the end of the selected indicator
-  final bool roundedCap;
+  /// Adds rounded edges at the beginning and at the end of the selected indicator
+  /// given the index of each step
+  ///
+  /// ```dart
+  /// // Example: Add rounded edges for all the steps
+  /// roundedCap: (index) => true
+  /// ```
+  final bool Function(int) roundedCap;
 
   // TODO: final bool isRadial;
 
@@ -246,7 +252,7 @@ class _CircularIndicatorPainter implements CustomPainter {
   final CircularDirection circularDirection;
   final double startingAngle;
   final double arcSize;
-  final bool roundedCap;
+  final bool Function(int) roundedCap;
 
   _CircularIndicatorPainter({
     @required this.totalSteps,
@@ -279,11 +285,6 @@ class _CircularIndicatorPainter implements CustomPainter {
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = maxDefinedSize;
-
-    // Add rounded stroke cap if option enabled
-    if (roundedCap) {
-      paint.strokeCap = StrokeCap.round;
-    }
 
     final rect = Rect.fromCenter(
       // Rect created from the center of the widget
@@ -324,8 +325,7 @@ class _CircularIndicatorPainter implements CustomPainter {
       // Size of the step
       final indexStepSize = customStepSize != null
           // Consider step index inverted when counterclockwise
-          ? customStepSize(
-              isClockwise ? step : totalSteps - step - 1, isSelectedColor)
+          ? customStepSize(_indexOfStep(step, isClockwise), isSelectedColor)
           : isSelectedColor
               ? selectedStepSize ?? stepSize
               : unselectedStepSize ?? stepSize;
@@ -333,8 +333,14 @@ class _CircularIndicatorPainter implements CustomPainter {
       // Use customColor if defined
       final stepColor = customColor != null
           // Consider step index inverted when counterclockwise
-          ? customColor(isClockwise ? step : totalSteps - step - 1)
+          ? customColor(_indexOfStep(step, isClockwise))
           : isSelectedColor ? selectedColor : unselectedColor;
+
+      // Apply stroke cap to each step
+      final hasStrokeCap = roundedCap != null
+          ? roundedCap(_indexOfStep(step, isClockwise))
+          : false;
+      final strokeCap = hasStrokeCap ? StrokeCap.round : StrokeCap.butt;
 
       // Draw arc steps of the indicator
       canvas.drawArc(
@@ -344,7 +350,8 @@ class _CircularIndicatorPainter implements CustomPainter {
         false /*isRadial*/,
         paint
           ..color = stepColor
-          ..strokeWidth = indexStepSize,
+          ..strokeWidth = indexStepSize
+          ..strokeCap = strokeCap,
       );
     }
   }
@@ -455,6 +462,10 @@ class _CircularIndicatorPainter implements CustomPainter {
   bool _isSelectedColor(int step, bool isClockwise) => isClockwise
       ? step < currentStep
       : (step + 1) > (totalSteps - currentStep);
+
+  /// Start counting indexes from the right if clockwise and on the left if counterclockwise
+  int _indexOfStep(int step, bool isClockwise) =>
+      isClockwise ? step : totalSteps - step - 1;
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => oldDelegate != this;
