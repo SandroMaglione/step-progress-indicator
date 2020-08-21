@@ -327,6 +327,7 @@ CircularStepProgressIndicator(
 | width   | `double` | Width of the indicator's container. | - |
 | padding         	| `double` | Spacing between each step. | `math.pi / 20` |
 | startingAngle    | `double` | Angle in which is placed the starting point of the indicator.| 0 |
+| roundedCap    | `bool Function(int)` | Adds rounded edges at the beginning and at the end of the selected indicator given the index of each step. | `(_) => false` |
 | arcSize      | `double` | Angle in radiants which represents the size of the arc used to display the indicator. | `math.pi * 2` |
 | fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
 | fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |
@@ -336,7 +337,7 @@ CircularStepProgressIndicator(
 ## Roadmap
 I am always open for suggestions and ideas for possible improvements or fixes.
 
-Feel free to open a Pull request if you would like to contribute to the project.
+Feel free to open a Pull **Request** if you would like to contribute to the project.
 
 If you would like to have a new feature implemented, just write a new issue.
 
