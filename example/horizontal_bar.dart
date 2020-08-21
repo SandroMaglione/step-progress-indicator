@@ -97,7 +97,7 @@ class HorizontalBar extends StatelessWidget {
                       currentStep: 7,
                       selectedColor: Colors.pink,
                       unselectedColor: Colors.amber,
-                      customSize: (index) => (index + 1) * 10.0,
+                      customSize: (index, _) => (index + 1) * 10.0,
                     ),
                   ],
                 ),

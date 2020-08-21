@@ -111,11 +111,12 @@ class StepProgressIndicator extends StatelessWidget {
   /// Assign a custom size [double] for each step
   ///
   /// Function takes a [int], index of the current step starting from 0, and
+  /// a [bool], which tells if the step is selected based on [currentStep], and
   /// must return a [double] size of the step
   ///
   /// If provided, it overrides
   /// [size], [selectedSize], and [unselectedSize]
-  final double Function(int) customSize;
+  final double Function(int, bool) customSize;
 
   /// Assign a custom [Color] for each step
   ///
@@ -246,7 +247,7 @@ class StepProgressIndicator extends StatelessWidget {
     double currentMaxSize = 0;
 
     for (int step = 0; step < totalSteps; ++step) {
-      final customSizeValue = customSize(step);
+      final customSizeValue = customSize(step, _isSelectedColor(step));
       if (customSizeValue > currentMaxSize) {
         currentMaxSize = customSizeValue;
       }
@@ -299,7 +300,7 @@ class StepProgressIndicator extends StatelessWidget {
     }
   }
 
-  /// true if color of the step given index is [selectedColor]
+  /// `true` if color of the step given index is [selectedColor]
   bool _isSelectedColor(int step) =>
       customColor == null &&
       !(progressDirection == TextDirection.ltr
@@ -373,7 +374,7 @@ class StepProgressIndicator extends StatelessWidget {
       // If defined and applicable, apply customSize or
       // different sizes for selected and unselected
       final stepSize = customSize != null
-          ? customSize(step)
+          ? customSize(step, _isSelectedColor(loopStep))
           : _isSelectedColor(loopStep)
               ? selectedSize ?? size
               : unselectedSize ?? size;
