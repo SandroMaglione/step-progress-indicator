@@ -452,7 +452,7 @@ void main() {
             children: <Widget>[
               StepProgressIndicator(
                 totalSteps: tTotalSteps,
-                customSize: (index) => index == 0 ? 20 : index == 9 ? 2 : 10,
+                customSize: (index, _) => index == 0 ? 20 : index == 9 ? 2 : 10,
               ),
             ],
           ),
