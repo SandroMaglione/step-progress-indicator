@@ -91,6 +91,11 @@ StepProgressIndicator(
     selectedColor: Colors.amber,
     unselectedColor: Colors.black,
     roundedEdges: Radius.circular(10),
+    gradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.orange, Colors.white],
+    ),
 ),
 ```
 
@@ -106,6 +111,16 @@ StepProgressIndicator(
     selectedColor: Colors.yellow,
     unselectedColor: Colors.cyan,
     roundedEdges: Radius.circular(10),
+    selectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.yellowAccent, Colors.deepOrange],
+    ),
+    unselectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.black, Colors.blue],
+    ),
 ),
 ```
 
@@ -121,6 +136,16 @@ StepProgressIndicator(
     progressDirection: TextDirection.rtl,
     selectedColor: Colors.green,
     unselectedColor: Colors.black12,
+    selectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.yellowAccent, Colors.deepOrange],
+    ),
+    unselectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.black, Colors.blue],
+    ),
 )
 ```
 
