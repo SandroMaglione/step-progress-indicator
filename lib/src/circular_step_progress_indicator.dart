@@ -46,7 +46,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// Takes a [int], index of the current step starting from 0, and
   /// must return a [Color]
   ///
-  /// If provided, it overrides
+  /// **NOTE**: If provided, it overrides
   /// [selectedColor] and [unselectedColor]
   final Color Function(int) customColor;
 
@@ -90,7 +90,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// a [bool], which tells if the step is selected based on [currentStep],
   /// and must return a [double] size of the step
   ///
-  /// If provided, it overrides [stepSize]
+  /// **NOTE**: If provided, it overrides [stepSize]
   final double Function(int, bool) customStepSize;
 
   /// [Widget] contained inside the circular indicator
@@ -121,8 +121,31 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// It allows you to draw a semi-circle instead of a full 360° (math.pi * 2) circle.
   final double arcSize;
 
-  /// Added rounded cap at the beginning and at the end of the selected indicator
-  final bool roundedCap;
+  /// Adds rounded edges at the beginning and at the end of the circular indicator
+  /// given a [int], index of each step, and a [bool],
+  /// which tells if the step is selected based on [currentStep], and must return a
+  /// [bool] that tells if the edges are rounded or not
+  ///
+  /// **NOTE**: For continuous circular indicators (`padding: 0`), to check if to apply
+  /// the rounded edges the packages uses index 0 (for the first arc painted) and
+  /// 1 (for the second arc painted)
+  ///
+  /// ```dart
+  /// // Example: Add rounded edges for all the steps
+  /// roundedCap: (index, _) => true
+  /// ```
+  ///
+  /// ```dart
+  /// // Example: Add rounded edges for the selected arc of the indicator
+  /// roundedCap: (index, _) => index == 0,
+  /// padding: 0
+  /// ```
+  final bool Function(int, bool) roundedCap;
+
+  /// Adds a gradient color to the circular indicator
+  ///
+  /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
+  final Gradient gradientColor;
 
   // TODO: final bool isRadial;
 
@@ -136,6 +159,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
     this.selectedStepSize,
     this.unselectedStepSize,
     this.roundedCap,
+    this.gradientColor,
     this.circularDirection = CircularDirection.clockwise,
     this.fallbackHeight = 100.0,
     this.fallbackWidth = 100.0,
@@ -161,6 +185,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
     if (arcSize > math.pi * 2)
       print(
           "WARNING (step_progress_indicator): arcSize of CircularStepProgressIndicator is greater than 360° (math.pi * 2), this will cause some steps to overlap!");
+    final TextDirection textDirection = Directionality.of(context);
 
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
@@ -193,6 +218,8 @@ class CircularStepProgressIndicator extends StatelessWidget {
             unselectedStepSize: unselectedStepSize,
             startingAngle: startingAngleTopOfIndicator,
             roundedCap: roundedCap,
+            gradientColor: gradientColor,
+            textDirection: textDirection,
           ),
           // Padding needed to show the indicator when child is placed on top of it
           child: Padding(
@@ -246,7 +273,9 @@ class _CircularIndicatorPainter implements CustomPainter {
   final CircularDirection circularDirection;
   final double startingAngle;
   final double arcSize;
-  final bool roundedCap;
+  final bool Function(int, bool) roundedCap;
+  final Gradient gradientColor;
+  final TextDirection textDirection;
 
   _CircularIndicatorPainter({
     @required this.totalSteps,
@@ -264,6 +293,8 @@ class _CircularIndicatorPainter implements CustomPainter {
     @required this.arcSize,
     @required this.maxDefinedSize,
     @required this.roundedCap,
+    @required this.gradientColor,
+    @required this.textDirection,
   });
 
   @override
@@ -280,11 +311,6 @@ class _CircularIndicatorPainter implements CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = maxDefinedSize;
 
-    // Add rounded stroke cap if option enabled
-    if (roundedCap) {
-      paint.strokeCap = StrokeCap.round;
-    }
-
     final rect = Rect.fromCenter(
       // Rect created from the center of the widget
       center: Offset(w / 2, h / 2),
@@ -292,6 +318,11 @@ class _CircularIndicatorPainter implements CustomPainter {
       height: h - maxDefinedSize,
       width: w - maxDefinedSize,
     );
+
+    if (gradientColor != null) {
+      paint.shader =
+          gradientColor.createShader(rect, textDirection: textDirection);
+    }
 
     // Change color selected or unselected based on the circularDirection
     final isClockwise = circularDirection == CircularDirection.clockwise;
@@ -324,8 +355,7 @@ class _CircularIndicatorPainter implements CustomPainter {
       // Size of the step
       final indexStepSize = customStepSize != null
           // Consider step index inverted when counterclockwise
-          ? customStepSize(
-              isClockwise ? step : totalSteps - step - 1, isSelectedColor)
+          ? customStepSize(_indexOfStep(step, isClockwise), isSelectedColor)
           : isSelectedColor
               ? selectedStepSize ?? stepSize
               : unselectedStepSize ?? stepSize;
@@ -333,8 +363,14 @@ class _CircularIndicatorPainter implements CustomPainter {
       // Use customColor if defined
       final stepColor = customColor != null
           // Consider step index inverted when counterclockwise
-          ? customColor(isClockwise ? step : totalSteps - step - 1)
+          ? customColor(_indexOfStep(step, isClockwise))
           : isSelectedColor ? selectedColor : unselectedColor;
+
+      // Apply stroke cap to each step
+      final hasStrokeCap = roundedCap != null
+          ? roundedCap(_indexOfStep(step, isClockwise), isSelectedColor)
+          : false;
+      final strokeCap = hasStrokeCap ? StrokeCap.round : StrokeCap.butt;
 
       // Draw arc steps of the indicator
       canvas.drawArc(
@@ -344,7 +380,8 @@ class _CircularIndicatorPainter implements CustomPainter {
         false /*isRadial*/,
         paint
           ..color = stepColor
-          ..strokeWidth = indexStepSize,
+          ..strokeWidth = indexStepSize
+          ..strokeCap = strokeCap,
       );
     }
   }
@@ -371,51 +408,71 @@ class _CircularIndicatorPainter implements CustomPainter {
     // firstArcStartingAngle = startingAngle
     final secondArcStartingAngle = startingAngle + firstArcLength;
 
+    // Apply stroke cap to both arcs
+    // NOTE: For continuous circular indicator, it uses 0 and 1 as index to
+    // apply the rounded cap
+    final firstArcStrokeCap = roundedCap != null
+        ? isClockwise
+            ? roundedCap(0, true) ?? false
+            : roundedCap(1, false) ?? false
+        : false;
+    final secondArcStrokeCap = roundedCap != null
+        ? isClockwise
+            ? roundedCap(1, false) ?? false
+            : roundedCap(0, true) ?? false
+        : false;
+    final firstCap = firstArcStrokeCap ? StrokeCap.round : StrokeCap.butt;
+    final secondCap = secondArcStrokeCap ? StrokeCap.round : StrokeCap.butt;
+
     // When clockwise, draw the second arc first and the first on top of it
     // Required when stroke cap is rounded to make the selected step on top of the unselected
     if (circularDirection == CircularDirection.clockwise) {
       // Second arc, selected when counterclockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: secondArcStartingAngle,
         sweepAngle: secondArcLength,
         strokeWidth: secondStepSize,
         color: secondStepColor,
+        strokeCap: secondCap,
       );
 
       // First arc, selected when clockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: startingAngle,
         sweepAngle: firstArcLength,
         strokeWidth: firstStepSize,
         color: firstStepColor,
+        strokeCap: firstCap,
       );
     } else {
       // First arc, selected when clockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: startingAngle,
         sweepAngle: firstArcLength,
         strokeWidth: firstStepSize,
         color: firstStepColor,
+        strokeCap: firstCap,
       );
 
       // Second arc, selected when counterclockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: secondArcStartingAngle,
         sweepAngle: secondArcLength,
         strokeWidth: secondStepSize,
         color: secondStepColor,
+        strokeCap: secondCap,
       );
     }
 
@@ -441,6 +498,7 @@ class _CircularIndicatorPainter implements CustomPainter {
     @required Paint paint,
     @required Color color,
     @required double strokeWidth,
+    @required StrokeCap strokeCap,
   }) =>
       canvas.drawArc(
         rect,
@@ -449,12 +507,17 @@ class _CircularIndicatorPainter implements CustomPainter {
         false /*isRadial*/,
         paint
           ..color = color
-          ..strokeWidth = strokeWidth,
+          ..strokeWidth = strokeWidth
+          ..strokeCap = strokeCap,
       );
 
   bool _isSelectedColor(int step, bool isClockwise) => isClockwise
       ? step < currentStep
       : (step + 1) > (totalSteps - currentStep);
+
+  /// Start counting indexes from the right if clockwise and on the left if counterclockwise
+  int _indexOfStep(int step, bool isClockwise) =>
+      isClockwise ? step : totalSteps - step - 1;
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => oldDelegate != this;
