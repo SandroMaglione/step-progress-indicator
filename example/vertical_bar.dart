@@ -30,6 +30,18 @@ class VerticalBar extends StatelessWidget {
                     size: 10.0,
                   ),
                   StepProgressIndicator(
+                    totalSteps: 8,
+                    direction: Axis.vertical,
+                    currentStep: 2,
+                    roundedEdges: Radius.circular(12),
+                    size: 10.0,
+                    gradientColor: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.red, Colors.blueAccent],
+                    ),
+                  ),
+                  StepProgressIndicator(
                     totalSteps: 25,
                     direction: Axis.vertical,
                     customColor: (index) => Colors.deepOrange,
@@ -72,6 +84,7 @@ class VerticalBar extends StatelessWidget {
                     unselectedColor: Colors.black12,
                     progressDirection: TextDirection.rtl,
                     selectedSize: 10.0,
+                    roundedEdges: Radius.elliptical(6, 30),
                   ),
                 ],
               ),

@@ -225,6 +225,11 @@ Row(
             unselectedColor: Colors.grey[200],
             selectedStepSize: 10.0,
             width: 100,
+            gradientColor: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Colors.cyan, Colors.orangeAccent],
+            ),
         ),
         CircularStepProgressIndicator(
             totalSteps: 20,
@@ -258,6 +263,9 @@ Row(
         height: 150,
         startingAngle: -math.pi * 2 / 3,
         arcSize: math.pi * 2 / 3 * 2,
+        gradientColor: LinearGradient(
+        colors: [Colors.red, Colors.purple[400]],
+        ),
     ),
     CircularStepProgressIndicator(
         totalSteps: 100,
