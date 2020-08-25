@@ -1,8 +1,10 @@
-## [0.2.4+7] - Coming soon
+## [0.2.4+7] - 25 August 2020
 - Added `roundedCap` property to `CircularStepProgressIndicator` ([#7](https://github.com/SandroMaglione/step-progress-indicator/issues/7))
 - Added `gradientColor` property to `CircularStepProgressIndicator`, and `gradientColor`, `selectedGradientColor` and `unselectedGradientColor` to `StepProgressIndicator` ([#8](https://github.com/SandroMaglione/step-progress-indicator/issues/8))
 - Fixed `customStepSize` when `circularDirection` is `CircularDirection.counterclockwise`: now the step indexes start at 0 from the left to the right as expected
 - Added `isSelected` bool parameter to `customStepSize`, used to change the step size based on the selected/unselected status of the current step (**breaking change**)
+- Updated and expanded documentation examples
+- Fixed documentations updates
 
 ## [0.2.3+6] - 20 May 2020
 - Added `arcSize` property to `CircularStepProgressIndicator` that allows you to draw semi-circle indicators ([#3](https://github.com/SandroMaglione/step-progress-indicator/issues/3))
