@@ -121,8 +121,10 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// It allows you to draw a semi-circle instead of a full 360° (math.pi * 2) circle.
   final double arcSize;
 
-  /// Adds rounded edges at the beginning and at the end of the selected indicator
-  /// given the index of each step
+  /// Adds rounded edges at the beginning and at the end of the circular indicator
+  /// given a [int], index of each step, and a [bool],
+  /// which tells if the step is selected based on [currentStep], and must return a
+  /// [bool] that tells if the edges are rounded or not
   ///
   /// **NOTE**: For continuous circular indicators (`padding: 0`), to check if to apply
   /// the rounded edges the packages uses index 0 (for the first arc painted) and
@@ -130,15 +132,15 @@ class CircularStepProgressIndicator extends StatelessWidget {
   ///
   /// ```dart
   /// // Example: Add rounded edges for all the steps
-  /// roundedCap: (index) => true
+  /// roundedCap: (index, _) => true
   /// ```
   ///
   /// ```dart
   /// // Example: Add rounded edges for the selected arc of the indicator
-  /// roundedCap: (index) => index == 0,
+  /// roundedCap: (index, _) => index == 0,
   /// padding: 0
   /// ```
-  final bool Function(int) roundedCap;
+  final bool Function(int, bool) roundedCap;
 
   // TODO: final bool isRadial;
 
@@ -262,7 +264,7 @@ class _CircularIndicatorPainter implements CustomPainter {
   final CircularDirection circularDirection;
   final double startingAngle;
   final double arcSize;
-  final bool Function(int) roundedCap;
+  final bool Function(int, bool) roundedCap;
 
   _CircularIndicatorPainter({
     @required this.totalSteps,
@@ -348,7 +350,7 @@ class _CircularIndicatorPainter implements CustomPainter {
 
       // Apply stroke cap to each step
       final hasStrokeCap = roundedCap != null
-          ? roundedCap(_indexOfStep(step, isClockwise))
+          ? roundedCap(_indexOfStep(step, isClockwise), isSelectedColor)
           : false;
       final strokeCap = hasStrokeCap ? StrokeCap.round : StrokeCap.butt;
 
@@ -391,10 +393,16 @@ class _CircularIndicatorPainter implements CustomPainter {
     // Apply stroke cap to both arcs
     // NOTE: For continuous circular indicator, it uses 0 and 1 as index to
     // apply the rounded cap
-    final firstArcStrokeCap =
-        roundedCap != null ? roundedCap(0) ?? false : false;
-    final secondArcStrokeCap =
-        roundedCap != null ? roundedCap(1) ?? false : false;
+    final firstArcStrokeCap = roundedCap != null
+        ? isClockwise
+            ? roundedCap(0, true) ?? false
+            : roundedCap(1, false) ?? false
+        : false;
+    final secondArcStrokeCap = roundedCap != null
+        ? isClockwise
+            ? roundedCap(1, false) ?? false
+            : roundedCap(0, true) ?? false
+        : false;
     final firstCap = firstArcStrokeCap ? StrokeCap.round : StrokeCap.butt;
     final secondCap = secondArcStrokeCap ? StrokeCap.round : StrokeCap.butt;
 
