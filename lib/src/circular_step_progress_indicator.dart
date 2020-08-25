@@ -141,7 +141,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// padding: 0
   /// ```
   final bool Function(int, bool) roundedCap;
-
+  
   /// Adds a gradient color to the circular indicator
   ///
   /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
