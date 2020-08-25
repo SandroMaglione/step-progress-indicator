@@ -191,6 +191,7 @@ Row(
             totalSteps: 10,
             currentStep: 6,
             width: 100,
+            roundedCap: (_, isSelected) => isSelected,
         ),
         CircularStepProgressIndicator(
             totalSteps: 12,
@@ -243,6 +244,7 @@ Row(
         width: 150,
         height: 150,
         selectedStepSize: 15,
+        roundedCap: (_, __) => true,
     ),
     ],
 ),
@@ -327,7 +329,7 @@ CircularStepProgressIndicator(
 | width   | `double` | Width of the indicator's container. | - |
 | padding         	| `double` | Spacing between each step. | `math.pi / 20` |
 | startingAngle    | `double` | Angle in which is placed the starting point of the indicator.| 0 |
-| roundedCap`(int)`     | `bool` | Adds rounded edges at the beginning and at the end of the selected indicator given the index of each step. | `(_) => false` |
+| roundedCap`(int, bool)`     | `bool` | Adds rounded edges at the beginning and at the end of the circular indicator given the index of each step and a `bool` telling if the step is selected. | `(_, __) => false` |
 | arcSize      | `double` | Angle in radiants which represents the size of the arc used to display the indicator. | `math.pi * 2` |
 | fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
 | fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |

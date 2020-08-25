@@ -28,6 +28,7 @@ class CircularBar1 extends StatelessWidget {
                           totalSteps: 10,
                           currentStep: 6,
                           width: 100,
+                          roundedCap: (_, isSelected) => isSelected,
                         ),
                         CircularStepProgressIndicator(
                           totalSteps: 12,
@@ -74,6 +75,7 @@ class CircularBar1 extends StatelessWidget {
                           width: 150,
                           height: 150,
                           selectedStepSize: 15,
+                          roundedCap: (_, __) => true,
                         ),
                       ],
                     ),
