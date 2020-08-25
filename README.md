@@ -191,6 +191,7 @@ Row(
             totalSteps: 10,
             currentStep: 6,
             width: 100,
+            roundedCap: (_, isSelected) => isSelected,
         ),
         CircularStepProgressIndicator(
             totalSteps: 12,
@@ -243,6 +244,7 @@ Row(
         width: 150,
         height: 150,
         selectedStepSize: 15,
+        roundedCap: (_, __) => true,
     ),
     ],
 ),
@@ -318,7 +320,7 @@ CircularStepProgressIndicator(
 | selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
 | customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
-| customStepSize`(int)`         	| `double` | Assign a custom size for each step. | - |
+| customStepSize`(int, bool)`         	| `double` | Assign a custom size for each step. | - |
 | selectedStepSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedStepSize         	| `double` | Specify a custom size for unselected steps. | - |
 | circularDirection         	| `TextDirection` | Defines if steps grow clockwise (`CircularDirection.clockwise`) or counterclockwise (`CircularDirection.counterclockwise`) | `CircularDirection.clockwise` |
@@ -327,6 +329,7 @@ CircularStepProgressIndicator(
 | width   | `double` | Width of the indicator's container. | - |
 | padding         	| `double` | Spacing between each step. | `math.pi / 20` |
 | startingAngle    | `double` | Angle in which is placed the starting point of the indicator.| 0 |
+| roundedCap`(int, bool)`     | `bool` | Adds rounded edges at the beginning and at the end of the circular indicator given the index of each step and a `bool` telling if the step is selected. | `(_, __) => false` |
 | arcSize      | `double` | Angle in radiants which represents the size of the arc used to display the indicator. | `math.pi * 2` |
 | fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
 | fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |
@@ -336,7 +339,7 @@ CircularStepProgressIndicator(
 ## Roadmap
 I am always open for suggestions and ideas for possible improvements or fixes.
 
-Feel free to open a Pull request if you would like to contribute to the project.
+Feel free to open a Pull **Request** if you would like to contribute to the project.
 
 If you would like to have a new feature implemented, just write a new issue.
 
