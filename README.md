@@ -318,6 +318,7 @@ CircularStepProgressIndicator(
 | selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
 | customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
+| gradientColor         	| `Gradient` | Apply a gradient color to the indicator. | - |
 | customStepSize`(int)`         	| `double` | Assign a custom size for each step. | - |
 | selectedStepSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedStepSize         	| `double` | Specify a custom size for unselected steps. | - |
