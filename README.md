@@ -91,6 +91,11 @@ StepProgressIndicator(
     selectedColor: Colors.amber,
     unselectedColor: Colors.black,
     roundedEdges: Radius.circular(10),
+    gradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.orange, Colors.white],
+    ),
 ),
 ```
 
@@ -106,6 +111,16 @@ StepProgressIndicator(
     selectedColor: Colors.yellow,
     unselectedColor: Colors.cyan,
     roundedEdges: Radius.circular(10),
+    selectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.yellowAccent, Colors.deepOrange],
+    ),
+    unselectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.black, Colors.blue],
+    ),
 ),
 ```
 
@@ -121,6 +136,16 @@ StepProgressIndicator(
     progressDirection: TextDirection.rtl,
     selectedColor: Colors.green,
     unselectedColor: Colors.black12,
+    selectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.yellowAccent, Colors.deepOrange],
+    ),
+    unselectedGradientColor: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Colors.black, Colors.blue],
+    ),
 )
 ```
 
@@ -299,6 +324,9 @@ CircularStepProgressIndicator(
 | customSize`(int)`         	| `double` | Assign a custom size for each step. | - |
 | selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
+| gradientColor         	| `Gradient` | Apply gradient color to the indicator. | - |
+| selectedGradientColor 	| `Gradient` | Apply gradient color to the selected steps of the indicator. | - |
+| unselectedGradientColor 	| `Gradient` | Apply gradient color to the unselected steps of the indicator. | - |
 | direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
 | progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
 | size   | `double` | Size of the indicator (height if `direction` is `Axis.horizontal`, width if `Axis.vertical`). | 4.0 |
@@ -320,6 +348,7 @@ CircularStepProgressIndicator(
 | selectedColor         	| `Color` | Color of the selected steps. | `Colors.blue` |
 | unselectedColor         	| `Color` | Color of the unselected steps. | `Colors.grey` |
 | customColor`(int)`         	| `Color` | Assign a custom Color for each step. | - |
+| gradientColor         	| `Gradient` | Apply a gradient color to the indicator. | - |
 | customStepSize`(int, bool)`         	| `double` | Assign a custom size for each step. | - |
 | selectedStepSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedStepSize         	| `double` | Specify a custom size for unselected steps. | - |

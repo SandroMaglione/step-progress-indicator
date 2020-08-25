@@ -46,7 +46,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// Takes a [int], index of the current step starting from 0, and
   /// must return a [Color]
   ///
-  /// If provided, it overrides
+  /// **NOTE**: If provided, it overrides
   /// [selectedColor] and [unselectedColor]
   final Color Function(int) customColor;
 
@@ -90,7 +90,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// a [bool], which tells if the step is selected based on [currentStep],
   /// and must return a [double] size of the step
   ///
-  /// If provided, it overrides [stepSize]
+  /// **NOTE**: If provided, it overrides [stepSize]
   final double Function(int, bool) customStepSize;
 
   /// [Widget] contained inside the circular indicator
@@ -141,6 +141,11 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// padding: 0
   /// ```
   final bool Function(int, bool) roundedCap;
+  
+  /// Adds a gradient color to the circular indicator
+  ///
+  /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
+  final Gradient gradientColor;
 
   // TODO: final bool isRadial;
 
@@ -154,6 +159,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
     this.selectedStepSize,
     this.unselectedStepSize,
     this.roundedCap,
+    this.gradientColor,
     this.circularDirection = CircularDirection.clockwise,
     this.fallbackHeight = 100.0,
     this.fallbackWidth = 100.0,
@@ -179,6 +185,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
     if (arcSize > math.pi * 2)
       print(
           "WARNING (step_progress_indicator): arcSize of CircularStepProgressIndicator is greater than 360° (math.pi * 2), this will cause some steps to overlap!");
+    final TextDirection textDirection = Directionality.of(context);
 
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
@@ -211,6 +218,8 @@ class CircularStepProgressIndicator extends StatelessWidget {
             unselectedStepSize: unselectedStepSize,
             startingAngle: startingAngleTopOfIndicator,
             roundedCap: roundedCap,
+            gradientColor: gradientColor,
+            textDirection: textDirection,
           ),
           // Padding needed to show the indicator when child is placed on top of it
           child: Padding(
@@ -265,6 +274,8 @@ class _CircularIndicatorPainter implements CustomPainter {
   final double startingAngle;
   final double arcSize;
   final bool Function(int, bool) roundedCap;
+  final Gradient gradientColor;
+  final TextDirection textDirection;
 
   _CircularIndicatorPainter({
     @required this.totalSteps,
@@ -282,6 +293,8 @@ class _CircularIndicatorPainter implements CustomPainter {
     @required this.arcSize,
     @required this.maxDefinedSize,
     @required this.roundedCap,
+    @required this.gradientColor,
+    @required this.textDirection,
   });
 
   @override
@@ -305,6 +318,11 @@ class _CircularIndicatorPainter implements CustomPainter {
       height: h - maxDefinedSize,
       width: w - maxDefinedSize,
     );
+
+    if (gradientColor != null) {
+      paint.shader =
+          gradientColor.createShader(rect, textDirection: textDirection);
+    }
 
     // Change color selected or unselected based on the circularDirection
     final isClockwise = circularDirection == CircularDirection.clockwise;
@@ -412,8 +430,8 @@ class _CircularIndicatorPainter implements CustomPainter {
       // Second arc, selected when counterclockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: secondArcStartingAngle,
         sweepAngle: secondArcLength,
         strokeWidth: secondStepSize,
@@ -424,8 +442,8 @@ class _CircularIndicatorPainter implements CustomPainter {
       // First arc, selected when clockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: startingAngle,
         sweepAngle: firstArcLength,
         strokeWidth: firstStepSize,
@@ -436,8 +454,8 @@ class _CircularIndicatorPainter implements CustomPainter {
       // First arc, selected when clockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: startingAngle,
         sweepAngle: firstArcLength,
         strokeWidth: firstStepSize,
@@ -448,8 +466,8 @@ class _CircularIndicatorPainter implements CustomPainter {
       // Second arc, selected when counterclockwise, unselected otherwise
       _drawArcOnCanvas(
         canvas: canvas,
-        paint: paint,
         rect: rect,
+        paint: paint,
         startingAngle: secondArcStartingAngle,
         sweepAngle: secondArcLength,
         strokeWidth: secondStepSize,

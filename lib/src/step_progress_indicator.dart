@@ -154,6 +154,15 @@ class StepProgressIndicator extends StatelessWidget {
   /// Added rounded corners to the first and last step of the indicator
   final Radius roundedEdges;
 
+  /// Adds a gradient color to the indicator
+  final Gradient gradientColor;
+
+  /// Adds a gradient color to the selected steps of the indicator
+  final Gradient selectedGradientColor;
+
+  /// Adds a gradient color to the unselected steps of the indicator
+  final Gradient unselectedGradientColor;
+
   StepProgressIndicator({
     @required this.totalSteps,
     this.customStep,
@@ -163,6 +172,9 @@ class StepProgressIndicator extends StatelessWidget {
     this.selectedSize,
     this.unselectedSize,
     this.roundedEdges,
+    this.gradientColor,
+    this.selectedGradientColor,
+    this.unselectedGradientColor,
     this.direction = Axis.horizontal,
     this.progressDirection = TextDirection.ltr,
     this.size = 4.0,
@@ -196,43 +208,60 @@ class StepProgressIndicator extends StatelessWidget {
           builder: (ctx, constraits) {
             if (direction == Axis.horizontal) {
               // If horizontal indicator, then use a Row
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: !_isOptimizable
-                    ? _buildSteps(
-                        // Use fallbackLength when no constraint exists
-                        _stepHeightOrWidthValue(
-                          constraits.maxWidth,
+              return _applyShaderMask(
+                gradientColor,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: !_isOptimizable
+                      ? _buildSteps(
+                          // Use fallbackLength when no constraint exists
+                          _stepHeightOrWidthValue(
+                            constraits.maxWidth,
+                          ),
+                        )
+                      : _buildOptimizedSteps(
+                          _maxHeightOrWidthValue(
+                            constraits.maxWidth,
+                          ),
                         ),
-                      )
-                    : _buildOptimizedSteps(
-                        _maxHeightOrWidthValue(
-                          constraits.maxWidth,
-                        ),
-                      ),
+                ),
               );
             } else {
               // If vertical indicator, then use a Column
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                // Use fallbackLength when no constraint exists
-                children: !_isOptimizable
-                    ? _buildSteps(
-                        _stepHeightOrWidthValue(
-                          constraits.maxHeight,
+              return _applyShaderMask(
+                gradientColor,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // Use fallbackLength when no constraint exists
+                  children: !_isOptimizable
+                      ? _buildSteps(
+                          _stepHeightOrWidthValue(
+                            constraits.maxHeight,
+                          ),
+                        )
+                      : _buildOptimizedSteps(
+                          _maxHeightOrWidthValue(
+                            constraits.maxHeight,
+                          ),
                         ),
-                      )
-                    : _buildOptimizedSteps(
-                        _maxHeightOrWidthValue(
-                          constraits.maxHeight,
-                        ),
-                      ),
+                ),
               );
             }
           },
         ),
       ),
     );
+  }
+
+  Widget _applyShaderMask(Gradient gradient, Widget child) {
+    if (gradient != null) {
+      return ShaderMask(
+        shaderCallback: (rect) => gradient.createShader(rect),
+        child: child,
+      );
+    } else {
+      return child;
+    }
   }
 
   /// Compute the maximum possible size of the indicator between
@@ -285,6 +314,11 @@ class StepProgressIndicator extends StatelessWidget {
   /// Choose what [Color] to assign
   /// given current [step] index (zero-based)
   Color _chooseStepColor(int step, int stepIndex) {
+    // Override all the other color options when gradient is defined
+    if (gradientColor != null) {
+      return Colors.white;
+    }
+
     // Assign customColor if not null
     if (customColor != null) {
       return customColor(stepIndex);
@@ -318,35 +352,45 @@ class StepProgressIndicator extends StatelessWidget {
 
     // Add first step
     stepList.add(
-      _ProgressStep(
-        direction: direction,
-        padding: padding,
-        color: isLtr ? selectedColor : unselectedColor,
-        width: isHorizontal
-            ? isLtr ? firstStepLength : secondStepLength
-            : isLtr ? selectedSize ?? size : unselectedSize ?? size,
-        height: !isHorizontal
-            ? isLtr ? firstStepLength : secondStepLength
-            : isLtr ? selectedSize ?? size : unselectedSize ?? size,
-        roundedEdges: roundedEdges,
-        isFirstStep: true,
+      _applyShaderMask(
+        selectedGradientColor,
+        _ProgressStep(
+          direction: direction,
+          padding: padding,
+          color: selectedGradientColor != null
+              ? Colors.white
+              : isLtr ? selectedColor : unselectedColor,
+          width: isHorizontal
+              ? isLtr ? firstStepLength : secondStepLength
+              : isLtr ? selectedSize ?? size : unselectedSize ?? size,
+          height: !isHorizontal
+              ? isLtr ? firstStepLength : secondStepLength
+              : isLtr ? selectedSize ?? size : unselectedSize ?? size,
+          roundedEdges: roundedEdges,
+          isFirstStep: true,
+        ),
       ),
     );
 
     // Add second step
     stepList.add(
-      _ProgressStep(
-        direction: direction,
-        padding: padding,
-        color: !isLtr ? selectedColor : unselectedColor,
-        width: isHorizontal
-            ? isLtr ? secondStepLength : firstStepLength
-            : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
-        height: !isHorizontal
-            ? isLtr ? secondStepLength : firstStepLength
-            : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
-        roundedEdges: roundedEdges,
-        isLastStep: true,
+      _applyShaderMask(
+        unselectedGradientColor,
+        _ProgressStep(
+          direction: direction,
+          padding: padding,
+          color: selectedGradientColor != null
+              ? Colors.white
+              : !isLtr ? selectedColor : unselectedColor,
+          width: isHorizontal
+              ? isLtr ? secondStepLength : firstStepLength
+              : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
+          height: !isHorizontal
+              ? isLtr ? secondStepLength : firstStepLength
+              : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
+          roundedEdges: roundedEdges,
+          isLastStep: true,
+        ),
       ),
     );
 

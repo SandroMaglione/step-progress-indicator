@@ -44,6 +44,11 @@ class HorizontalBar extends StatelessWidget {
                       selectedColor: Colors.amber,
                       unselectedColor: Colors.black,
                       roundedEdges: Radius.circular(10),
+                      gradientColor: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.orange, Colors.white],
+                      ),
                     ),
                     StepProgressIndicator(
                       totalSteps: 100,
@@ -53,6 +58,16 @@ class HorizontalBar extends StatelessWidget {
                       selectedColor: Colors.yellow,
                       unselectedColor: Colors.cyan,
                       roundedEdges: Radius.circular(10),
+                      selectedGradientColor: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.yellowAccent, Colors.deepOrange],
+                      ),
+                      unselectedGradientColor: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.black, Colors.blue],
+                      ),
                     ),
                     StepProgressIndicator(
                       totalSteps: 12,
@@ -62,6 +77,16 @@ class HorizontalBar extends StatelessWidget {
                       progressDirection: TextDirection.rtl,
                       selectedColor: Colors.green,
                       unselectedColor: Colors.black12,
+                      selectedGradientColor: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.yellowAccent, Colors.deepOrange],
+                      ),
+                      unselectedGradientColor: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.black, Colors.blue],
+                      ),
                     ),
                     StepProgressIndicator(
                       totalSteps: 5,
