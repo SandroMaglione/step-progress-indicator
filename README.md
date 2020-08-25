@@ -92,9 +92,9 @@ StepProgressIndicator(
     unselectedColor: Colors.black,
     roundedEdges: Radius.circular(10),
     gradientColor: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Colors.orange, Colors.white],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.orange, Colors.white],
     ),
 ),
 ```
@@ -112,14 +112,14 @@ StepProgressIndicator(
     unselectedColor: Colors.cyan,
     roundedEdges: Radius.circular(10),
     selectedGradientColor: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Colors.yellowAccent, Colors.deepOrange],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.yellowAccent, Colors.deepOrange],
     ),
     unselectedGradientColor: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Colors.black, Colors.blue],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.black, Colors.blue],
     ),
 ),
 ```
@@ -137,14 +137,14 @@ StepProgressIndicator(
     selectedColor: Colors.green,
     unselectedColor: Colors.black12,
     selectedGradientColor: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Colors.yellowAccent, Colors.deepOrange],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.yellowAccent, Colors.deepOrange],
     ),
     unselectedGradientColor: LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Colors.black, Colors.blue],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.black, Colors.blue],
     ),
 )
 ```
@@ -226,9 +226,9 @@ Row(
             selectedStepSize: 10.0,
             width: 100,
             gradientColor: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.cyan, Colors.orangeAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.cyan, Colors.orangeAccent],
             ),
         ),
         CircularStepProgressIndicator(
@@ -264,7 +264,7 @@ Row(
         startingAngle: -math.pi * 2 / 3,
         arcSize: math.pi * 2 / 3 * 2,
         gradientColor: LinearGradient(
-        colors: [Colors.red, Colors.purple[400]],
+            colors: [Colors.red, Colors.purple[400]],
         ),
     ),
     CircularStepProgressIndicator(
@@ -376,7 +376,7 @@ CircularStepProgressIndicator(
 ## Roadmap
 I am always open for suggestions and ideas for possible improvements or fixes.
 
-Feel free to open a Pull **Request** if you would like to contribute to the project.
+Feel free to open a [**Pull Request**](https://github.com/SandroMaglione/step-progress-indicator/pulls) if you would like to contribute to the project.
 
 If you would like to have a new feature implemented, just write a new issue.
 
