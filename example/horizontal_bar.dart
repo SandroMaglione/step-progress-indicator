@@ -94,7 +94,9 @@ class HorizontalBar extends StatelessWidget {
                       size: 20,
                       customColor: (index) => index == 0
                           ? Colors.redAccent
-                          : index == 4 ? Colors.blueAccent : Colors.deepOrange,
+                          : index == 4
+                              ? Colors.blueAccent
+                              : Colors.deepOrange,
                     ),
                     StepProgressIndicator(
                       totalSteps: 6,

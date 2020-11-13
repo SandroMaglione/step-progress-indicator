@@ -364,7 +364,9 @@ class _CircularIndicatorPainter implements CustomPainter {
       final stepColor = customColor != null
           // Consider step index inverted when counterclockwise
           ? customColor(_indexOfStep(step, isClockwise))
-          : isSelectedColor ? selectedColor : unselectedColor;
+          : isSelectedColor
+              ? selectedColor
+              : unselectedColor;
 
       // Apply stroke cap to each step
       final hasStrokeCap = roundedCap != null
