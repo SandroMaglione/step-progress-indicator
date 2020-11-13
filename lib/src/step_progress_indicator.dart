@@ -231,6 +231,9 @@ class StepProgressIndicator extends StatelessWidget {
     );
   }
 
+  /// Apply both left and right rounded edges when only one step
+  bool get _isOnlyOneStep => totalSteps == 1;
+
   /// Apply a [Row] when the [direction] of the indicator is [Axis.horizontal],
   /// or a [Column] otherwise ([Axis.vertical])
   Widget _applyWidgetDirection(
@@ -288,7 +291,9 @@ class StepProgressIndicator extends StatelessWidget {
   double _sizeOrMaxLength(bool isCorrectDirection, double maxLength) =>
       isCorrectDirection
           // If space is not unbounded, then fill it with the indicator
-          ? maxLength != double.infinity ? double.infinity : fallbackLength
+          ? maxLength != double.infinity
+              ? double.infinity
+              : fallbackLength
           : maxDefinedSize;
 
   /// Draw just two containers in case no specific step setting is required
@@ -368,14 +373,25 @@ class StepProgressIndicator extends StatelessWidget {
           padding: padding,
           color: firstStepGradient != null
               ? Colors.white
-              : isLtr ? selectedColor : unselectedColor,
+              : isLtr
+                  ? selectedColor
+                  : unselectedColor,
           width: isHorizontal
-              ? isLtr ? firstStepLength : secondStepLength
-              : isLtr ? selectedSize ?? size : unselectedSize ?? size,
+              ? isLtr
+                  ? firstStepLength
+                  : secondStepLength
+              : isLtr
+                  ? selectedSize ?? size
+                  : unselectedSize ?? size,
           height: !isHorizontal
-              ? isLtr ? firstStepLength : secondStepLength
-              : isLtr ? selectedSize ?? size : unselectedSize ?? size,
+              ? isLtr
+                  ? firstStepLength
+                  : secondStepLength
+              : isLtr
+                  ? selectedSize ?? size
+                  : unselectedSize ?? size,
           roundedEdges: roundedEdges,
+          isOnlyOneStep: _isOnlyOneStep,
           isFirstStep: true,
         ),
       ),
@@ -390,14 +406,25 @@ class StepProgressIndicator extends StatelessWidget {
           padding: padding,
           color: secondStepGradient != null
               ? Colors.white
-              : !isLtr ? selectedColor : unselectedColor,
+              : !isLtr
+                  ? selectedColor
+                  : unselectedColor,
           width: isHorizontal
-              ? isLtr ? secondStepLength : firstStepLength
-              : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
+              ? isLtr
+                  ? secondStepLength
+                  : firstStepLength
+              : !isLtr
+                  ? selectedSize ?? size
+                  : unselectedSize ?? size,
           height: !isHorizontal
-              ? isLtr ? secondStepLength : firstStepLength
-              : !isLtr ? selectedSize ?? size : unselectedSize ?? size,
+              ? isLtr
+                  ? secondStepLength
+                  : firstStepLength
+              : !isLtr
+                  ? selectedSize ?? size
+                  : unselectedSize ?? size,
           roundedEdges: roundedEdges,
+          isOnlyOneStep: _isOnlyOneStep,
           isLastStep: true,
         ),
       ),
@@ -433,7 +460,9 @@ class StepProgressIndicator extends StatelessWidget {
       // different sizes for selected and unselected
       final stepSize = customSize != null
           ? customSize(step, isSelectedStepColor)
-          : isSelectedStepColor ? selectedSize ?? size : unselectedSize ?? size;
+          : isSelectedStepColor
+              ? selectedSize ?? size
+              : unselectedSize ?? size;
 
       final progressStep = _ProgressStep(
         direction: direction,
@@ -447,6 +476,7 @@ class StepProgressIndicator extends StatelessWidget {
         isFirstStep: step == 0,
         isLastStep: step == totalSteps - 1,
         roundedEdges: roundedEdges,
+        isOnlyOneStep: _isOnlyOneStep,
       );
 
       // Add to list of selected or unselected steps based on selection state
@@ -494,6 +524,7 @@ class _ProgressStep extends StatelessWidget {
   final void Function() onTap;
   final bool isFirstStep;
   final bool isLastStep;
+  final bool isOnlyOneStep;
   final Radius roundedEdges;
 
   const _ProgressStep({
@@ -506,6 +537,7 @@ class _ProgressStep extends StatelessWidget {
     this.onTap,
     this.isFirstStep = false,
     this.isLastStep = false,
+    this.isOnlyOneStep = false,
     this.roundedEdges,
     Key key,
   }) : super(key: key);
@@ -525,34 +557,36 @@ class _ProgressStep extends StatelessWidget {
       // - First step + vertical: top-left, top-right
       // - Last step + horizontal: top-right, bottom-right
       // - Last step + vertical: bottom-left, bottom-right
-      child: (isFirstStep || isLastStep) && roundedEdges != null
+      child: (isFirstStep || isLastStep || isOnlyOneStep) &&
+              roundedEdges != null
           ? ClipRRect(
-              borderRadius: isFirstStep
-                  ? direction == Axis.horizontal
-                      ? BorderRadius.only(
-                          topLeft: roundedEdges,
-                          bottomLeft: roundedEdges,
-                        )
-                      : BorderRadius.only(
-                          topLeft: roundedEdges,
-                          topRight: roundedEdges,
-                        )
-                  : isLastStep
-                      ? direction == Axis.horizontal
-                          ? BorderRadius.only(
-                              topRight: roundedEdges,
-                              bottomRight: roundedEdges,
-                            )
-                          : BorderRadius.only(
-                              bottomLeft: roundedEdges,
-                              bottomRight: roundedEdges,
-                            )
-                      : BorderRadius.zero,
+              borderRadius: BorderRadius.only(
+                topLeft: _radiusTopLeft ? roundedEdges : Radius.zero,
+                bottomRight: _radiusBottomRight ? roundedEdges : Radius.zero,
+                bottomLeft: _radiusBottomLeft ? roundedEdges : Radius.zero,
+                topRight: _radiusTopRight ? roundedEdges : Radius.zero,
+              ),
               child: _buildStep,
             )
           : _buildStep,
     );
   }
+
+  /// Check if to apply rounded edges to top left border
+  bool get _radiusTopLeft => (isFirstStep || isOnlyOneStep);
+
+  /// Check if to apply rounded edges to bottom right border
+  bool get _radiusBottomRight => (isLastStep || isOnlyOneStep);
+
+  /// Check if to apply rounded edges to bottom left border
+  bool get _radiusBottomLeft =>
+      ((isFirstStep || isOnlyOneStep) && direction == Axis.horizontal) ||
+      ((isLastStep || isOnlyOneStep) && direction == Axis.vertical);
+
+  /// Check if to apply rounded edges to top right border
+  bool get _radiusTopRight =>
+      ((isFirstStep || isOnlyOneStep) && direction == Axis.vertical) ||
+      ((isLastStep || isOnlyOneStep) && direction == Axis.horizontal);
 
   /// Build the actual single step [Widget]
   Widget get _buildStep => onTap != null && customStep == null

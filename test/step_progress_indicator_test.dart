@@ -418,7 +418,9 @@ void main() {
                 totalSteps: tTotalSteps,
                 customColor: (index) => index == 0
                     ? Colors.red
-                    : index == 9 ? Colors.black : Colors.blue,
+                    : index == 9
+                        ? Colors.black
+                        : Colors.blue,
                 customStep: (index, color, _) {
                   if ((index == 0 && color == Colors.red) ||
                       (index == 9 && color == Colors.black) ||
@@ -457,7 +459,11 @@ void main() {
             children: <Widget>[
               StepProgressIndicator(
                 totalSteps: tTotalSteps,
-                customSize: (index, _) => index == 0 ? 20 : index == 9 ? 2 : 10,
+                customSize: (index, _) => index == 0
+                    ? 20
+                    : index == 9
+                        ? 2
+                        : 10,
               ),
             ],
           ),
@@ -480,6 +486,131 @@ void main() {
     expect(
       steps.evaluate().where((element) => element.size.height == 10).length,
       tTotalSteps - 2,
+    );
+  });
+
+  group('roundedEdges', () {
+    final double tEdgesValue = 20;
+    final Radius tRoundedEdges = Radius.circular(tEdgesValue);
+    final StepProgressIndicator tStepProgressIndicatorDefault =
+        StepProgressIndicator(
+      totalSteps: tTotalSteps,
+      roundedEdges: tRoundedEdges,
+    );
+
+    Future<void> init(WidgetTester tester,
+            [StepProgressIndicator stepProgressIndicator]) =>
+        tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Row(
+                children: <Widget>[
+                  stepProgressIndicator ?? tStepProgressIndicatorDefault,
+                ],
+              ),
+            ),
+          ),
+        );
+
+    testWidgets('should apply roundedEdges when defined',
+        (WidgetTester tester) async {
+      await init(tester);
+      final steps = find.byType(ClipRRect);
+      expect(steps.evaluate().length, 2);
+    });
+
+    testWidgets('should not apply roundedEdges when not defined',
+        (WidgetTester tester) async {
+      await init(tester, StepProgressIndicator(totalSteps: 10));
+      final steps = find.byType(ClipRRect);
+      expect(steps.evaluate().isEmpty, true);
+    });
+
+    testWidgets('should have correct radius', (WidgetTester tester) async {
+      await init(tester);
+
+      final steps = find.byType(ClipRRect);
+      final firstClipRRect = steps.evaluate().first.widget as ClipRRect;
+      final lastClipRRect = steps.evaluate().last.widget as ClipRRect;
+
+      expect(
+        steps.evaluate().length,
+        2,
+      );
+
+      expect(
+        firstClipRRect.borderRadius.topLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius.bottomLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius.topLeft.y == tEdgesValue &&
+            firstClipRRect.borderRadius.bottomLeft.y == tEdgesValue,
+        true,
+      );
+
+      expect(
+        lastClipRRect.borderRadius.topRight.x == tEdgesValue &&
+            lastClipRRect.borderRadius.bottomRight.x == tEdgesValue &&
+            lastClipRRect.borderRadius.topRight.y == tEdgesValue &&
+            lastClipRRect.borderRadius.bottomRight.y == tEdgesValue,
+        true,
+      );
+    });
+
+    testWidgets('should apply correct radius when only one step',
+        (WidgetTester tester) async {
+      await init(
+        tester,
+        StepProgressIndicator(
+          totalSteps: 1,
+          roundedEdges: tRoundedEdges,
+        ),
+      );
+
+      final steps = find.byType(ClipRRect);
+      final firstClipRRect = steps.evaluate().first.widget as ClipRRect;
+
+      expect(
+        steps.evaluate().length,
+        1,
+      );
+
+      expect(
+        firstClipRRect.borderRadius.topLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius.bottomLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius.topLeft.y == tEdgesValue &&
+            firstClipRRect.borderRadius.bottomLeft.y == tEdgesValue &&
+            firstClipRRect.borderRadius.topRight.x == tEdgesValue &&
+            firstClipRRect.borderRadius.bottomRight.x == tEdgesValue &&
+            firstClipRRect.borderRadius.topRight.y == tEdgesValue &&
+            firstClipRRect.borderRadius.bottomRight.y == tEdgesValue,
+        true,
+      );
+    });
+  });
+
+  testWidgets('should apply gradient when defined',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Row(
+            children: <Widget>[
+              StepProgressIndicator(
+                totalSteps: tTotalSteps,
+                gradientColor: LinearGradient(
+                  colors: [Colors.orange, Colors.white],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    final steps = find.byType(ShaderMask);
+
+    expect(
+      steps.evaluate().length,
+      1,
     );
   });
 }

@@ -97,7 +97,9 @@ class CircularBar2 extends StatelessWidget {
                           height: 80,
                           customColor: (index) => index < 10
                               ? Colors.red[300]
-                              : index < 15 ? Colors.red[500] : Colors.red[100],
+                              : index < 15
+                                  ? Colors.red[500]
+                                  : Colors.red[100],
                         ),
                         CircularStepProgressIndicator(
                           totalSteps: 6,
