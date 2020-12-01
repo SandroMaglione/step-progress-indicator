@@ -1,8 +1,8 @@
 # Step Progress Indicator
 <p>
-  <img src="https://img.shields.io/badge/version-0.2.4%2B7-blue.svg" />
-  <img src="https://img.shields.io/badge/flutter-v1.20.2-blue.svg" />
-  <img src="https://img.shields.io/badge/dart-v2.9.1-blue.svg" />
+  <img src="https://img.shields.io/badge/version-0.2.5%2B8-blue.svg" />
+  <img src="https://img.shields.io/badge/flutter-v1.22.4-blue.svg" />
+  <img src="https://img.shields.io/badge/dart-v2.10.4-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
   </a>
@@ -28,7 +28,7 @@ Install and import the package. Then just customize its parameters.
 dependencies:
   flutter:
     sdk: flutter
-  step_progress_indicator: ^0.2.4+7
+  step_progress_indicator: ^0.2.5+8
 ```
 ---
 
@@ -381,6 +381,7 @@ Feel free to open a [**Pull Request**](https://github.com/SandroMaglione/step-pr
 If you would like to have a new feature implemented, just write a new issue.
 
 ## Versioning
+- v0.2.5+8 - 01 December 2020
 - v0.2.4+7 - 25 August 2020
 - v0.2.3+6 - 20 May 2020
 - v0.2.2+5 - 26 April 2020

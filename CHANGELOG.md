@@ -1,3 +1,7 @@
+## [0.2.5+8] - 01 December 2020
+- Fixed issue when adding `roundedEdges` with only one step ([#12](https://github.com/SandroMaglione/step-progress-indicator/issues/12))
+- Added more widget tests
+
 ## [0.2.4+7] - 25 August 2020
 - Added `roundedCap` property to `CircularStepProgressIndicator` ([#7](https://github.com/SandroMaglione/step-progress-indicator/issues/7))
 - Added `gradientColor` property to `CircularStepProgressIndicator`, and `gradientColor`, `selectedGradientColor` and `unselectedGradientColor` to `StepProgressIndicator` ([#8](https://github.com/SandroMaglione/step-progress-indicator/issues/8))
