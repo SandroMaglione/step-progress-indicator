@@ -169,7 +169,14 @@ class StepProgressIndicator extends StatelessWidget {
   /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
   final Gradient unselectedGradientColor;
 
+  /// Assign alignement [MainAxisAlignment] for layout
+  ///
+  /// **NOTE** if not provided it defaults to [MainAxisAlignment.center]
   final MainAxisAlignment mainAxisAlignment;
+
+  /// Assign alignment [CrossAxisAlignment] for layout
+  ///
+  /// **NOTE** if not provided it defaults to [CrossAxisAlignment.center]
   final CrossAxisAlignment crossAxisAlignment;
 
   StepProgressIndicator({
@@ -247,12 +254,14 @@ class StepProgressIndicator extends StatelessWidget {
       // If horizontal indicator, then use a Row
       return Row(
         crossAxisAlignment: crossAxisAlignment,
+        mainAxisAlignment: mainAxisAlignment,
         children: children(constraits.maxWidth),
       );
     } else {
       // If vertical indicator, then use a Column
       return Column(
         crossAxisAlignment: crossAxisAlignment,
+        mainAxisAlignment: mainAxisAlignment,
         children: children(constraits.maxHeight),
       );
     }
