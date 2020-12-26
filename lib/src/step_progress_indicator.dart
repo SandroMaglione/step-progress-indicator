@@ -171,12 +171,12 @@ class StepProgressIndicator extends StatelessWidget {
 
   /// Assign alignement [MainAxisAlignment] for layout
   ///
-  /// **NOTE** if not provided it defaults to [MainAxisAlignment.center]
+  /// **NOTE**: if not provided it defaults to [MainAxisAlignment.center]
   final MainAxisAlignment mainAxisAlignment;
 
   /// Assign alignment [CrossAxisAlignment] for layout
   ///
-  /// **NOTE** if not provided it defaults to [CrossAxisAlignment.center]
+  /// **NOTE**: if not provided it defaults to [CrossAxisAlignment.center]
   final CrossAxisAlignment crossAxisAlignment;
 
   StepProgressIndicator({
