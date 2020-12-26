@@ -169,6 +169,16 @@ class StepProgressIndicator extends StatelessWidget {
   /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
   final Gradient unselectedGradientColor;
 
+  /// Assign alignement [MainAxisAlignment] for layout
+  ///
+  /// **NOTE**: if not provided it defaults to [MainAxisAlignment.center]
+  final MainAxisAlignment mainAxisAlignment;
+
+  /// Assign alignment [CrossAxisAlignment] for layout
+  ///
+  /// **NOTE**: if not provided it defaults to [CrossAxisAlignment.center]
+  final CrossAxisAlignment crossAxisAlignment;
+
   StepProgressIndicator({
     @required this.totalSteps,
     this.customStep,
@@ -189,6 +199,8 @@ class StepProgressIndicator extends StatelessWidget {
     this.unselectedColor = Colors.grey,
     this.padding = 2.0,
     this.fallbackLength = 100.0,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     Key key,
   })  : assert(totalSteps > 0,
             "Number of total steps (totalSteps) of the StepProgressIndicator must be greater than 0"),
@@ -241,13 +253,15 @@ class StepProgressIndicator extends StatelessWidget {
     if (direction == Axis.horizontal) {
       // If horizontal indicator, then use a Row
       return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: crossAxisAlignment,
+        mainAxisAlignment: mainAxisAlignment,
         children: children(constraits.maxWidth),
       );
     } else {
       // If vertical indicator, then use a Column
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: crossAxisAlignment,
+        mainAxisAlignment: mainAxisAlignment,
         children: children(constraits.maxHeight),
       );
     }
