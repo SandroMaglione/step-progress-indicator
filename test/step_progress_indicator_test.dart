@@ -180,7 +180,7 @@ void main() {
 
     // Find all the steps (skip the indicator container)
     expect(
-      steps.evaluate().skip(1).map((element) => element.size.width),
+      steps.evaluate().skip(1).map((element) => element.size!.width),
       List<double>.filled(tTotalSteps, tWidth),
     );
   });
@@ -207,7 +207,7 @@ void main() {
 
     // Find all the steps (skip the indicator container)
     expect(
-      steps.evaluate().skip(1).map((element) => element.size.height),
+      steps.evaluate().skip(1).map((element) => element.size!.height),
       List<double>.filled(tTotalSteps, tHeight),
     );
   });
@@ -263,7 +263,7 @@ void main() {
 
     // Find all the steps (skip the indicator container)
     expect(
-      steps.evaluate().skip(1).map((element) => element.size.width),
+      steps.evaluate().skip(1).map((element) => element.size!.width),
       List<double>.filled(
           tTotalSteps, (tWidth - (tTotalSteps * 2.0 * 2)) / tTotalSteps),
     );
@@ -289,7 +289,7 @@ void main() {
     final steps = find.byType(StepProgressIndicator);
 
     expect(
-      steps.evaluate().first.size.width,
+      steps.evaluate().first.size!.width,
       150,
     );
   });
@@ -344,7 +344,7 @@ void main() {
 
     final steps = find.byType(Container);
 
-    expect(steps.evaluate().map((element) => element.size.height),
+    expect(steps.evaluate().map((element) => element.size!.height),
         List<double>.filled(tTotalSteps, 30.0));
   });
 
@@ -369,7 +369,7 @@ void main() {
 
     final steps = find.byType(Container);
 
-    expect(steps.evaluate().map((element) => element.size.width),
+    expect(steps.evaluate().map((element) => element.size!.width),
         List<double>.filled(tTotalSteps, 30.0));
   });
 
@@ -396,12 +396,12 @@ void main() {
     final steps = find.byType(Container);
 
     expect(
-      steps.evaluate().where((element) => element.size.height == 20).length,
+      steps.evaluate().where((element) => element.size!.height == 20).length,
       6,
     );
 
     expect(
-      steps.evaluate().where((element) => element.size.height == 10).length,
+      steps.evaluate().where((element) => element.size!.height == 10).length,
       4,
     );
   });
@@ -474,17 +474,17 @@ void main() {
     final steps = find.byType(Container);
 
     expect(
-      steps.evaluate().where((element) => element.size.height == 20).length,
+      steps.evaluate().where((element) => element.size!.height == 20).length,
       1,
     );
 
     expect(
-      steps.evaluate().where((element) => element.size.height == 2).length,
+      steps.evaluate().where((element) => element.size!.height == 2).length,
       1,
     );
 
     expect(
-      steps.evaluate().where((element) => element.size.height == 10).length,
+      steps.evaluate().where((element) => element.size!.height == 10).length,
       tTotalSteps - 2,
     );
   });
@@ -499,7 +499,7 @@ void main() {
     );
 
     Future<void> init(WidgetTester tester,
-            [StepProgressIndicator stepProgressIndicator]) =>
+            [StepProgressIndicator? stepProgressIndicator]) =>
         tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
@@ -539,18 +539,18 @@ void main() {
       );
 
       expect(
-        firstClipRRect.borderRadius.topLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius.bottomLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius.topLeft.y == tEdgesValue &&
-            firstClipRRect.borderRadius.bottomLeft.y == tEdgesValue,
+        firstClipRRect.borderRadius!.topLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius!.bottomLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius!.topLeft.y == tEdgesValue &&
+            firstClipRRect.borderRadius!.bottomLeft.y == tEdgesValue,
         true,
       );
 
       expect(
-        lastClipRRect.borderRadius.topRight.x == tEdgesValue &&
-            lastClipRRect.borderRadius.bottomRight.x == tEdgesValue &&
-            lastClipRRect.borderRadius.topRight.y == tEdgesValue &&
-            lastClipRRect.borderRadius.bottomRight.y == tEdgesValue,
+        lastClipRRect.borderRadius!.topRight.x == tEdgesValue &&
+            lastClipRRect.borderRadius!.bottomRight.x == tEdgesValue &&
+            lastClipRRect.borderRadius!.topRight.y == tEdgesValue &&
+            lastClipRRect.borderRadius!.bottomRight.y == tEdgesValue,
         true,
       );
     });
@@ -574,14 +574,14 @@ void main() {
       );
 
       expect(
-        firstClipRRect.borderRadius.topLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius.bottomLeft.x == tEdgesValue &&
-            firstClipRRect.borderRadius.topLeft.y == tEdgesValue &&
-            firstClipRRect.borderRadius.bottomLeft.y == tEdgesValue &&
-            firstClipRRect.borderRadius.topRight.x == tEdgesValue &&
-            firstClipRRect.borderRadius.bottomRight.x == tEdgesValue &&
-            firstClipRRect.borderRadius.topRight.y == tEdgesValue &&
-            firstClipRRect.borderRadius.bottomRight.y == tEdgesValue,
+        firstClipRRect.borderRadius!.topLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius!.bottomLeft.x == tEdgesValue &&
+            firstClipRRect.borderRadius!.topLeft.y == tEdgesValue &&
+            firstClipRRect.borderRadius!.bottomLeft.y == tEdgesValue &&
+            firstClipRRect.borderRadius!.topRight.x == tEdgesValue &&
+            firstClipRRect.borderRadius!.bottomRight.x == tEdgesValue &&
+            firstClipRRect.borderRadius!.topRight.y == tEdgesValue &&
+            firstClipRRect.borderRadius!.bottomRight.y == tEdgesValue,
         true,
       );
     });

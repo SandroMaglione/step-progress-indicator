@@ -71,7 +71,7 @@ void main() {
     final container = find.byType(SizedBox);
 
     expect(
-      container.evaluate().first.size.height,
+      container.evaluate().first.size!.height,
       tHeight,
     );
   });
@@ -96,7 +96,7 @@ void main() {
     final container = find.byType(SizedBox);
 
     expect(
-      container.evaluate().first.size.width,
+      container.evaluate().first.size!.width,
       tWidth,
     );
   });

@@ -8,8 +8,8 @@ class CircularAnimation1 extends StatefulWidget {
 
 class _CircularAnimation1State extends State<CircularAnimation1>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {

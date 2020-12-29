@@ -70,7 +70,7 @@ class CircularBar1 extends StatelessWidget {
                           startingAngle: -math.pi * 2 / 3,
                           arcSize: math.pi * 2 / 3 * 2,
                           gradientColor: LinearGradient(
-                            colors: [Colors.red, Colors.purple[400]],
+                            colors: [Colors.red, Colors.purple],
                           ),
                         ),
                         CircularStepProgressIndicator(
@@ -162,7 +162,7 @@ class CircularBar1 extends StatelessWidget {
                           ? Colors.deepPurple
                           : index % 2 == 0
                               ? Colors.deepOrange
-                              : Colors.grey[100],
+                              : Colors.grey[100]!,
                       width: 250,
                     ),
                   ],
