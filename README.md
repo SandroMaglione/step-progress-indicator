@@ -11,6 +11,11 @@
   </a>
 </p>
 
+<a href="https://www.buymeacoffee.com/sandromaglione">
+    <img src="https://shields.io/badge/sandromaglione-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/sandromaglione" />
+</a>
+
+
 Open source Flutter package, bar indicator made of a series of selected and unselected steps.
 
 Made by Sandro Maglione, check out his personal official website [sandromaglione.com](https://www.sandromaglione.com)
@@ -389,6 +394,14 @@ If you would like to have a new feature implemented, just write a new issue.
 - v0.2.0+3 - 24 February 2020
 - v0.1.1+2 - 24 January 2020
 - v0.1.0+1 - 23 January 2020
+
+## Support
+If you would like to support my work, why don't you buy me a coffee?
+
+<a href="https://www.buymeacoffee.com/sandromaglione">
+    <img src="https://shields.io/badge/sandromaglione-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/sandromaglione" />
+</a>
+
 
 ## License
 MIT License, see the [LICENSE.md](https://github.com/SandroMaglione/step-progress-indicator/blob/master/LICENSE) file for details.
