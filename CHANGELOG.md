@@ -1,3 +1,7 @@
+## [0.2.6+9]
+- Added the option to specify alignment for `StepProgressIndicator` (Thanks to [@faridg18](https://github.com/faridg18) for his contribution ([#15](https://github.com/SandroMaglione/step-progress-indicator/pull/15)))
+- Added `blendMode` for gradient of `StepProgressIndicator` ([#16](https://github.com/SandroMaglione/step-progress-indicator/issues/16))
+
 ## [0.2.5+8] - 01 December 2020
 - Fixed issue when adding `roundedEdges` with only one step ([#12](https://github.com/SandroMaglione/step-progress-indicator/issues/12))
 - Added more widget tests

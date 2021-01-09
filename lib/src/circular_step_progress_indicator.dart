@@ -147,8 +147,6 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
   final Gradient gradientColor;
 
-  // TODO: final bool isRadial;
-
   CircularStepProgressIndicator({
     @required this.totalSteps,
     this.child,

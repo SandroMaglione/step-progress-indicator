@@ -340,6 +340,7 @@ CircularStepProgressIndicator(
 | gradientColor         	| `Gradient` | Apply gradient color to the indicator. | - |
 | selectedGradientColor 	| `Gradient` | Apply gradient color to the selected steps of the indicator. | - |
 | unselectedGradientColor 	| `Gradient` | Apply gradient color to the unselected steps of the indicator. | - |
+| blendMode 	| `BlendMode` | Apply `BlendMode` to `ShaderMask` when `gradientColor`, `selectedGradientColor`, or `unselectedGradientColor` defined. | - |
 | direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
 | progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
 | size   | `double` | Size of the indicator (height if `direction` is `Axis.horizontal`, width if `Axis.vertical`). | 4.0 |
@@ -348,6 +349,8 @@ CircularStepProgressIndicator(
 | selectedSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedSize         	| `double` | Specify a custom size for unselected steps. | - |
 | roundedEdges         	| `Radius` | Add rounded edge corners to first and last step. | - |
+| mainAxisAlignment         	| `MainAxisAlignment` | Assign alignment `MainAxisAlignment` for indicator's container. | `MainAxisAlignment.center` |
+| crossAxisAlignment         	| `CrossAxisAlignment` | Assign alignment `CrossAxisAlignment` for indicator's container. | `CrossAxisAlignment.center` |
 
 ---
 

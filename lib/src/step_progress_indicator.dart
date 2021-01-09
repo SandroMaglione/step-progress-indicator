@@ -169,12 +169,15 @@ class StepProgressIndicator extends StatelessWidget {
   /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
   final Gradient unselectedGradientColor;
 
-  /// Assign alignement [MainAxisAlignment] for layout
+  /// Apply [BlendMode] to [ShaderMask] when [gradientColor], [selectedGradientColor], or [unselectedGradientColor] defined
+  final BlendMode blendMode;
+
+  /// Assign alignment [MainAxisAlignment] for indicator's container
   ///
   /// **NOTE**: if not provided it defaults to [MainAxisAlignment.center]
   final MainAxisAlignment mainAxisAlignment;
 
-  /// Assign alignment [CrossAxisAlignment] for layout
+  /// Assign alignment [CrossAxisAlignment] for indicator's container
   ///
   /// **NOTE**: if not provided it defaults to [CrossAxisAlignment.center]
   final CrossAxisAlignment crossAxisAlignment;
@@ -191,6 +194,7 @@ class StepProgressIndicator extends StatelessWidget {
     this.gradientColor,
     this.selectedGradientColor,
     this.unselectedGradientColor,
+    this.blendMode,
     this.direction = Axis.horizontal,
     this.progressDirection = TextDirection.ltr,
     this.size = 4.0,
@@ -223,21 +227,19 @@ class StepProgressIndicator extends StatelessWidget {
           constraits.maxHeight,
         ),
         child: LayoutBuilder(
-          builder: (ctx, constraits) {
-            return _applyShaderMask(
-              gradientColor,
-              _applyWidgetDirection(
-                (maxSize) => !_isOptimizable
-                    ? _buildSteps(
-                        _stepHeightOrWidthValue(maxSize),
-                      )
-                    : _buildOptimizedSteps(
-                        _maxHeightOrWidthValue(maxSize),
-                      ),
-                constraits,
-              ),
-            );
-          },
+          builder: (ctx, constraits) => _applyShaderMask(
+            gradientColor,
+            _applyWidgetDirection(
+              (maxSize) => !_isOptimizable
+                  ? _buildSteps(
+                      _stepHeightOrWidthValue(maxSize),
+                    )
+                  : _buildOptimizedSteps(
+                      _maxHeightOrWidthValue(maxSize),
+                    ),
+              constraits,
+            ),
+          ),
         ),
       ),
     );
@@ -272,6 +274,12 @@ class StepProgressIndicator extends StatelessWidget {
     if (gradient != null) {
       return ShaderMask(
         shaderCallback: (rect) => gradient.createShader(rect),
+        // Apply user defined blendMode if defined, default otherwise
+        blendMode: blendMode == null
+            ? padding == 0
+                ? BlendMode.src
+                : BlendMode.modulate
+            : blendMode,
         child: child,
       );
     } else {
@@ -369,14 +377,14 @@ class StepProgressIndicator extends StatelessWidget {
     final isLtr = progressDirection == TextDirection.ltr;
     final isHorizontal = direction == Axis.horizontal;
 
-    final firstStepLength = indicatorLength * (currentStep / totalSteps);
-    final secondStepLength = indicatorLength - firstStepLength;
-
     // Choose gradient based on direction defined
     final firstStepGradient =
         isLtr ? selectedGradientColor : unselectedGradientColor;
     final secondStepGradient =
         !isLtr ? selectedGradientColor : unselectedGradientColor;
+
+    final firstStepLength = indicatorLength * (currentStep / totalSteps);
+    final secondStepLength = indicatorLength - firstStepLength;
 
     // Add first step
     stepList.add(
