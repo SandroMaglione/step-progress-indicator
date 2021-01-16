@@ -147,7 +147,8 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
   final Gradient gradientColor;
 
-  // TODO: final bool isRadial;
+  /// Removes the extra angle caused by [StrokeCap.round] when [roundedCap] is applied
+  final bool removeRoundedCapExtraAngle;
 
   CircularStepProgressIndicator({
     @required this.totalSteps,
@@ -170,6 +171,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
     this.stepSize = 6.0,
     this.startingAngle = 0,
     this.arcSize = math.pi * 2,
+    this.removeRoundedCapExtraAngle = false,
     Key key,
   })  : assert(totalSteps > 0,
             "Number of total steps (totalSteps) of the CircularStepProgressIndicator must be greater than 0"),
@@ -220,6 +222,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
             roundedCap: roundedCap,
             gradientColor: gradientColor,
             textDirection: textDirection,
+            removeRoundedCapExtraAngle: removeRoundedCapExtraAngle,
           ),
           // Padding needed to show the indicator when child is placed on top of it
           child: Padding(
@@ -276,6 +279,7 @@ class _CircularIndicatorPainter implements CustomPainter {
   final bool Function(int, bool) roundedCap;
   final Gradient gradientColor;
   final TextDirection textDirection;
+  final bool removeRoundedCapExtraAngle;
 
   _CircularIndicatorPainter({
     @required this.totalSteps,
@@ -295,6 +299,7 @@ class _CircularIndicatorPainter implements CustomPainter {
     @required this.roundedCap,
     @required this.gradientColor,
     @required this.textDirection,
+    @required this.removeRoundedCapExtraAngle,
   });
 
   @override
@@ -328,7 +333,10 @@ class _CircularIndicatorPainter implements CustomPainter {
     final isClockwise = circularDirection == CircularDirection.clockwise;
 
     // Make a continuous arc without rendering all the steps when possible
-    if (padding == 0 && customColor == null && customStepSize == null) {
+    if (padding == 0 &&
+        customColor == null &&
+        customStepSize == null &&
+        roundedCap == null) {
       _drawContinuousArc(canvas, paint, rect, isClockwise);
     } else {
       _drawStepArc(canvas, paint, rect, isClockwise, stepLength);
@@ -374,16 +382,23 @@ class _CircularIndicatorPainter implements CustomPainter {
           : false;
       final strokeCap = hasStrokeCap ? StrokeCap.round : StrokeCap.butt;
 
+      // Remove extra size caused by rounded stroke cap
+      // https://github.com/SandroMaglione/step-progress-indicator/issues/20#issue-786114745
+      final extraCapSize = indexStepSize / 2;
+      final extraCapAngle = extraCapSize / (rect.width / 2);
+      final extraCapRemove = hasStrokeCap && removeRoundedCapExtraAngle;
+
       // Draw arc steps of the indicator
-      canvas.drawArc(
-        rect,
-        stepAngle,
-        stepLength - padding,
-        false /*isRadial*/,
-        paint
-          ..color = stepColor
-          ..strokeWidth = indexStepSize
-          ..strokeCap = strokeCap,
+      _drawArcOnCanvas(
+        canvas: canvas,
+        rect: rect,
+        startingAngle: stepAngle + (extraCapRemove ? extraCapAngle : 0),
+        sweepAngle:
+            stepLength - padding - (extraCapRemove ? extraCapAngle * 2 : 0),
+        paint: paint,
+        color: stepColor,
+        strokeWidth: indexStepSize,
+        strokeCap: strokeCap,
       );
     }
   }
@@ -477,18 +492,6 @@ class _CircularIndicatorPainter implements CustomPainter {
         strokeCap: secondCap,
       );
     }
-
-    // Draw custom stroke cap at the end of the indicator
-    // canvas.drawCircle(
-    //   Offset(
-    //     rect.center.dx + math.cos(secondArcStartingAngle) * (rect.width / 2),
-    //     rect.center.dy + math.sin(secondArcStartingAngle) * (rect.height / 2),
-    //   ),
-    //   firstStepSize / 2,
-    //   Paint()
-    //     ..color = Colors.redAccent
-    //     ..style = PaintingStyle.fill,
-    // );
   }
 
   /// Draw the actual arc for a continuous indicator

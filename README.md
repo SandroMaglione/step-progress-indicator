@@ -371,7 +371,8 @@ CircularStepProgressIndicator(
 | width   | `double` | Width of the indicator's container. | - |
 | padding         	| `double` | Spacing between each step. | `math.pi / 20` |
 | startingAngle    | `double` | Angle in which is placed the starting point of the indicator.| 0 |
-| roundedCap`(int, bool)`     | `bool` | Adds rounded edges at the beginning and at the end of the circular indicator given the index of each step and a `bool` telling if the step is selected. | `(_, __) => false` |
+| roundedCap`(int, bool)`     | `bool` | Adds rounded edges at the beginning and at the end of the circular indicator given `int` index of each step and a `bool` telling if the step is selected. | `(_, __) => false` |
+| removeRoundedCapExtraAngle | `bool` | Removes extra angle caused by `StrokeCap.butt` when `roundedCap` is applied [#20](https://github.com/SandroMaglione/step-progress-indicator/issues/20#issue-786114745). | `false` |
 | arcSize      | `double` | Angle in radiants which represents the size of the arc used to display the indicator. | `math.pi * 2` |
 | fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
 | fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |

@@ -1,3 +1,6 @@
+## [0.2.6+9]
+- Added `removeRoundedCapExtraAngle` to `CircularStepProgressIndicator` to remove extra angle caused by `StrokeCap.butt` when `roundedCap` is applied ([#20](https://github.com/SandroMaglione/step-progress-indicator/issues/20#issue-786114745))
+
 ## [0.2.5+8] - 01 December 2020
 - Fixed issue when adding `roundedEdges` with only one step ([#12](https://github.com/SandroMaglione/step-progress-indicator/issues/12))
 - Added more widget tests
