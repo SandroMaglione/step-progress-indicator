@@ -246,7 +246,10 @@ class StepProgressIndicator extends StatelessWidget {
   }
 
   /// Apply both left and right rounded edges when only one step
-  bool get _isOnlyOneStep => totalSteps == 1;
+  /// - Only 1 total steps
+  /// - Two steps (padding == 0) and only one is visible (currentStep == 0)
+  bool get _isOnlyOneStep =>
+      totalSteps == 1 || (currentStep == 0 && padding == 0);
 
   /// Apply a [Row] when the [direction] of the indicator is [Axis.horizontal],
   /// or a [Column] otherwise ([Axis.vertical])

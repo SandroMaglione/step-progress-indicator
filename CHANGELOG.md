@@ -2,6 +2,7 @@
 - Added `removeRoundedCapExtraAngle` to `CircularStepProgressIndicator` to remove extra angle caused by `StrokeCap.butt` when `roundedCap` is applied ([#20](https://github.com/SandroMaglione/step-progress-indicator/issues/20#issue-786114745))
 - Added the option to specify alignment for `StepProgressIndicator` (Thanks to [@faridg18](https://github.com/faridg18) for his contribution ([#15](https://github.com/SandroMaglione/step-progress-indicator/pull/15)))
 - Added `blendMode` for gradient of `StepProgressIndicator` ([#16](https://github.com/SandroMaglione/step-progress-indicator/issues/16))
+- Fixed issue on `StepProgressIndicator` when adding `roundedEdges` with `padding == 0` and no steps selected ([#23](https://github.com/SandroMaglione/step-progress-indicator/issues/23))
 
 ## [0.2.5+8] - 01 December 2020
 - Fixed issue when adding `roundedEdges` with only one step ([#12](https://github.com/SandroMaglione/step-progress-indicator/issues/12))
