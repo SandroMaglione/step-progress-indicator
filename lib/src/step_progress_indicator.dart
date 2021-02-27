@@ -170,7 +170,7 @@ class StepProgressIndicator extends StatelessWidget {
   final Gradient? unselectedGradientColor;
 
   /// Apply [BlendMode] to [ShaderMask] when [gradientColor], [selectedGradientColor], or [unselectedGradientColor] defined
-  final BlendMode blendMode;
+  final BlendMode? blendMode;
 
   /// Assign alignment [MainAxisAlignment] for indicator's container
   ///
@@ -278,11 +278,11 @@ class StepProgressIndicator extends StatelessWidget {
       return ShaderMask(
         shaderCallback: (rect) => gradient.createShader(rect),
         // Apply user defined blendMode if defined, default otherwise
-        blendMode: blendMode == null
-            ? padding == 0
+        blendMode: blendMode != null
+            ? blendMode!
+            : padding == 0
                 ? BlendMode.src
-                : BlendMode.modulate
-            : blendMode,
+                : BlendMode.modulate,
         child: child,
       );
     } else {

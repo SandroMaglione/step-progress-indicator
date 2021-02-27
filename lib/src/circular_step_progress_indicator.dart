@@ -147,6 +147,9 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// **NOTE**: If provided, it overrides [selectedColor], [unselectedColor], and [customColor]
   final Gradient? gradientColor;
 
+  /// Removes the extra angle caused by [StrokeCap.round] when [roundedCap] is applied
+  final bool removeRoundedCapExtraAngle;
+
   CircularStepProgressIndicator({
     required this.totalSteps,
     this.child,
@@ -168,6 +171,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
     this.stepSize = 6.0,
     this.startingAngle = 0,
     this.arcSize = math.pi * 2,
+    this.removeRoundedCapExtraAngle = false,
     Key? key,
   })  : assert(totalSteps > 0,
             "Number of total steps (totalSteps) of the CircularStepProgressIndicator must be greater than 0"),
@@ -295,6 +299,7 @@ class _CircularIndicatorPainter implements CustomPainter {
     required this.roundedCap,
     required this.gradientColor,
     required this.textDirection,
+    required this.removeRoundedCapExtraAngle,
   });
 
   @override
