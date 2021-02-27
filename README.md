@@ -11,6 +11,11 @@
   </a>
 </p>
 
+<a href="https://www.buymeacoffee.com/sandromaglione">
+    <img src="https://shields.io/badge/sandromaglione-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/sandromaglione" />
+</a>
+
+
 Open source Flutter package, bar indicator made of a series of selected and unselected steps.
 
 Made by Sandro Maglione, check out his personal official website [sandromaglione.com](https://www.sandromaglione.com)
@@ -335,6 +340,7 @@ CircularStepProgressIndicator(
 | gradientColor         	| `Gradient` | Apply gradient color to the indicator. | - |
 | selectedGradientColor 	| `Gradient` | Apply gradient color to the selected steps of the indicator. | - |
 | unselectedGradientColor 	| `Gradient` | Apply gradient color to the unselected steps of the indicator. | - |
+| blendMode 	| `BlendMode` | Apply `BlendMode` to `ShaderMask` when `gradientColor`, `selectedGradientColor`, or `unselectedGradientColor` defined. | - |
 | direction         	| `Axis` | Defines if indicator is horizontal or vertical. | `Axis.horizontal` |
 | progressDirection         	| `TextDirection` | Defines if steps grow from left-to-right / top-to-bottom `TextDirection.ltr` or right-to-left / bottom-to-top `TextDirection.rtl`. | `TextDirection.ltr` |
 | size   | `double` | Size of the indicator (height if `direction` is `Axis.horizontal`, width if `Axis.vertical`). | 4.0 |
@@ -343,6 +349,8 @@ CircularStepProgressIndicator(
 | selectedSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedSize         	| `double` | Specify a custom size for unselected steps. | - |
 | roundedEdges         	| `Radius` | Add rounded edge corners to first and last step. | - |
+| mainAxisAlignment         	| `MainAxisAlignment` | Assign alignment `MainAxisAlignment` for indicator's container. | `MainAxisAlignment.center` |
+| crossAxisAlignment         	| `CrossAxisAlignment` | Assign alignment `CrossAxisAlignment` for indicator's container. | `CrossAxisAlignment.center` |
 
 ---
 
@@ -366,7 +374,8 @@ CircularStepProgressIndicator(
 | width   | `double` | Width of the indicator's container. | - |
 | padding         	| `double` | Spacing between each step. | `math.pi / 20` |
 | startingAngle    | `double` | Angle in which is placed the starting point of the indicator.| 0 |
-| roundedCap`(int, bool)`     | `bool` | Adds rounded edges at the beginning and at the end of the circular indicator given the index of each step and a `bool` telling if the step is selected. | `(_, __) => false` |
+| roundedCap`(int, bool)`     | `bool` | Adds rounded edges at the beginning and at the end of the circular indicator given `int` index of each step and a `bool` telling if the step is selected. | `(_, __) => false` |
+| removeRoundedCapExtraAngle | `bool` | Removes extra angle caused by `StrokeCap.butt` when `roundedCap` is applied [#20](https://github.com/SandroMaglione/step-progress-indicator/issues/20#issue-786114745). | `false` |
 | arcSize      | `double` | Angle in radiants which represents the size of the arc used to display the indicator. | `math.pi * 2` |
 | fallbackHeight         	| `double` | Height of the indicator's container in case the parent height has no size limit i.e. `double.infinity`. | 100.0 |
 | fallbackWidth         	| `double` | Width of the indicator's container in case the parent width has no size limit i.e. `double.infinity`. | 100.0 |
@@ -389,6 +398,14 @@ If you would like to have a new feature implemented, just write a new issue.
 - v0.2.0+3 - 24 February 2020
 - v0.1.1+2 - 24 January 2020
 - v0.1.0+1 - 23 January 2020
+
+## Support
+If you would like to support my work, why don't you buy me a coffee?
+
+<a href="https://www.buymeacoffee.com/sandromaglione">
+    <img src="https://shields.io/badge/sandromaglione-Support--me-FFDD00?logo=buy-me-a-coffee&style=for-the-badge&link=https://www.buymeacoffee.com/sandromaglione" />
+</a>
+
 
 ## License
 MIT License, see the [LICENSE.md](https://github.com/SandroMaglione/step-progress-indicator/blob/master/LICENSE) file for details.
