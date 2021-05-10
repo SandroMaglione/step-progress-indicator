@@ -1,8 +1,8 @@
 # Step Progress Indicator
 <p>
-  <img src="https://img.shields.io/badge/version-0.2.5%2B8-blue.svg" />
-  <img src="https://img.shields.io/badge/flutter-v1.22.4-blue.svg" />
-  <img src="https://img.shields.io/badge/dart-v2.10.4-blue.svg" />
+  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
+  <img src="https://img.shields.io/badge/flutter-v2.0.2-blue.svg" />
+  <img src="https://img.shields.io/badge/dart-v2.12.1-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
   </a>
@@ -20,7 +20,7 @@ Open source Flutter package, bar indicator made of a series of selected and unse
 
 Made by Sandro Maglione, check out his personal official website [sandromaglione.com](https://www.sandromaglione.com)
 
-**[Check out the full step_progress_indicator tutorial](https://www.sandromaglione.com/blog/2020/01/24/step-progress-indicator-flutter-package-tutorial/)**
+**[Check out the full step_progress_indicator tutorial](https://www.sandromaglione.com/2020/01/24/step-progress-indicator-flutter-package-tutorial/)**
 
 See the full example [here](https://github.com/SandroMaglione/step-progress-indicator/tree/master/example)
 
@@ -33,9 +33,11 @@ Install and import the package. Then just customize its parameters.
 dependencies:
   flutter:
     sdk: flutter
-  step_progress_indicator: ^0.2.5+8
+  step_progress_indicator: ^1.0.0
 ```
 ---
+
+> The last no null-safe version of the package was [v0.2.5+8](https://pub.dev/packages/step_progress_indicator/versions/0.2.5+8)
 
 Horizontal             |  Vertical
 :-------------------------:|:-------------------------:
@@ -368,7 +370,7 @@ CircularStepProgressIndicator(
 | customStepSize`(int, bool)`         	| `double` | Assign a custom size for each step. | - |
 | selectedStepSize         	| `double` | Specify a custom size for selected steps. | - |
 | unselectedStepSize         	| `double` | Specify a custom size for unselected steps. | - |
-| circularDirection         	| `TextDirection` | Defines if steps grow clockwise (`CircularDirection.clockwise`) or counterclockwise (`CircularDirection.counterclockwise`) | `CircularDirection.clockwise` |
+| circularDirection         	| `CircularDirection` | Defines if steps grow clockwise (`CircularDirection.clockwise`) or counterclockwise (`CircularDirection.counterclockwise`) | `CircularDirection.clockwise` |
 | stepSize   | `double` | Size of the each step of the indicator. | 6.0 |
 | height   | `double` | Height of the indicator's container. | - |
 | width   | `double` | Width of the indicator's container. | - |
@@ -390,6 +392,7 @@ Feel free to open a [**Pull Request**](https://github.com/SandroMaglione/step-pr
 If you would like to have a new feature implemented, just write a new issue.
 
 ## Versioning
+- v1.0.0 - 10 May 2021
 - v0.2.5+8 - 01 December 2020
 - v0.2.4+7 - 25 August 2020
 - v0.2.3+6 - 20 May 2020

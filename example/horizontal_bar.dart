@@ -103,7 +103,7 @@ class HorizontalBar extends StatelessWidget {
                       currentStep: 4,
                       size: 36,
                       selectedColor: Colors.black,
-                      unselectedColor: Colors.grey[200],
+                      unselectedColor: Colors.lightBlue,
                       customStep: (index, color, _) => color == Colors.black
                           ? Container(
                               color: color,

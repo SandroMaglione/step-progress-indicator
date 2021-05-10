@@ -68,12 +68,12 @@ class CircularBar2 extends StatelessWidget {
                           width: 80,
                           height: 80,
                           customColor: (index) => index < 10
-                              ? Colors.red[300]
+                              ? Colors.red[300]!
                               : index < 20
-                                  ? Colors.red[500]
+                                  ? Colors.red[500]!
                                   : index < 30
-                                      ? Colors.red[900]
-                                      : Colors.red[100],
+                                      ? Colors.red[900]!
+                                      : Colors.red[100]!,
                         ),
                         CircularStepProgressIndicator(
                           totalSteps: 30,
@@ -82,12 +82,12 @@ class CircularBar2 extends StatelessWidget {
                           width: 80,
                           height: 80,
                           customColor: (index) => index < 10
-                              ? Colors.red[300]
+                              ? Colors.red[300]!
                               : index < 20
-                                  ? Colors.red[500]
+                                  ? Colors.red[500]!
                                   : index < 30
-                                      ? Colors.red[900]
-                                      : Colors.red[100],
+                                      ? Colors.red[900]!
+                                      : Colors.red[100]!,
                         ),
                         CircularStepProgressIndicator(
                           totalSteps: 20,
@@ -96,10 +96,10 @@ class CircularBar2 extends StatelessWidget {
                           width: 80,
                           height: 80,
                           customColor: (index) => index < 10
-                              ? Colors.red[300]
+                              ? Colors.red[300]!
                               : index < 15
-                                  ? Colors.red[500]
-                                  : Colors.red[100],
+                                  ? Colors.red[500]!
+                                  : Colors.red[100]!,
                         ),
                         CircularStepProgressIndicator(
                           totalSteps: 6,
@@ -281,7 +281,7 @@ class CircularBar2 extends StatelessWidget {
                               ? Colors.deepPurple
                               : index % 2 == 0
                                   ? Colors.deepOrange
-                                  : Colors.grey[100],
+                                  : Colors.grey[100]!,
                           width: 60,
                           height: 60,
                         ),
@@ -292,7 +292,7 @@ class CircularBar2 extends StatelessWidget {
                               ? Colors.deepPurple
                               : index % 2 == 0
                                   ? Colors.deepOrange
-                                  : Colors.grey[100],
+                                  : Colors.grey[100]!,
                           width: 60,
                           height: 60,
                         ),
