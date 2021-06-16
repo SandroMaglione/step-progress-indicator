@@ -182,7 +182,17 @@ class StepProgressIndicator extends StatelessWidget {
   /// **NOTE**: if not provided it defaults to [CrossAxisAlignment.center]
   final CrossAxisAlignment crossAxisAlignment;
 
-  StepProgressIndicator({
+  /// Assign alignment [MainAxisAlignment] for a single step
+  ///
+  /// **NOTE**: if not provided it defaults to [MainAxisAlignment.center]
+  final MainAxisAlignment stepMainAxisAlignment;
+
+  /// Assign alignment [CrossAxisAlignment] for a single step
+  ///
+  /// **NOTE**: if not provided it defaults to [CrossAxisAlignment.center]
+  final CrossAxisAlignment stepCrossAxisAlignment;
+
+  const StepProgressIndicator({
     required this.totalSteps,
     this.customStep,
     this.onTap,
@@ -205,6 +215,8 @@ class StepProgressIndicator extends StatelessWidget {
     this.fallbackLength = 100.0,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.stepMainAxisAlignment = MainAxisAlignment.center,
+    this.stepCrossAxisAlignment = CrossAxisAlignment.center,
     Key? key,
   })  : assert(totalSteps > 0,
             "Number of total steps (totalSteps) of the StepProgressIndicator must be greater than 0"),
@@ -418,6 +430,8 @@ class StepProgressIndicator extends StatelessWidget {
           roundedEdges: roundedEdges,
           isOnlyOneStep: _isOnlyOneStep,
           isFirstStep: true,
+          mainAxisAlignment: stepMainAxisAlignment,
+          crossAxisAlignment: stepCrossAxisAlignment,
         ),
       ),
     );
@@ -451,6 +465,8 @@ class StepProgressIndicator extends StatelessWidget {
           roundedEdges: roundedEdges,
           isOnlyOneStep: _isOnlyOneStep,
           isLastStep: true,
+          mainAxisAlignment: stepMainAxisAlignment,
+          crossAxisAlignment: stepCrossAxisAlignment,
         ),
       ),
     );
@@ -502,6 +518,8 @@ class StepProgressIndicator extends StatelessWidget {
         isLastStep: step == totalSteps - 1,
         roundedEdges: roundedEdges,
         isOnlyOneStep: _isOnlyOneStep,
+        mainAxisAlignment: stepMainAxisAlignment,
+        crossAxisAlignment: stepCrossAxisAlignment,
       );
 
       // Add to list of selected or unselected steps based on selection state
@@ -551,6 +569,8 @@ class _ProgressStep extends StatelessWidget {
   final bool isLastStep;
   final bool isOnlyOneStep;
   final Radius? roundedEdges;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   const _ProgressStep({
     required this.direction,
@@ -558,6 +578,8 @@ class _ProgressStep extends StatelessWidget {
     required this.padding,
     required this.width,
     required this.height,
+    required this.mainAxisAlignment,
+    required this.crossAxisAlignment,
     this.customStep,
     this.onTap,
     this.isFirstStep = false,
@@ -570,30 +592,38 @@ class _ProgressStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Assign given padding
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: direction == Axis.horizontal ? padding : 0.0,
-        vertical: direction == Axis.vertical ? padding : 0.0,
-      ),
-      // If first or last step and rounded edges enabled, apply
-      // rounded edges using ClipRRect
-      // Different corners based on first/last step and indicator's direction
-      // - First step + horizontal: top-left, bottom-left
-      // - First step + vertical: top-left, top-right
-      // - Last step + horizontal: top-right, bottom-right
-      // - Last step + vertical: bottom-left, bottom-right
-      child: (isFirstStep || isLastStep || isOnlyOneStep) &&
-              roundedEdges != null
-          ? ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: _radiusTopLeft ? roundedEdges! : Radius.zero,
-                bottomRight: _radiusBottomRight ? roundedEdges! : Radius.zero,
-                bottomLeft: _radiusBottomLeft ? roundedEdges! : Radius.zero,
-                topRight: _radiusTopRight ? roundedEdges! : Radius.zero,
-              ),
-              child: _buildStep,
-            )
-          : _buildStep,
+    return Column(
+      // Single step alignment
+      mainAxisAlignment: mainAxisAlignment,
+      crossAxisAlignment: crossAxisAlignment,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: direction == Axis.horizontal ? padding : 0.0,
+            vertical: direction == Axis.vertical ? padding : 0.0,
+          ),
+          // If first or last step and rounded edges enabled, apply
+          // rounded edges using ClipRRect
+          // Different corners based on first/last step and indicator's direction
+          // - First step + horizontal: top-left, bottom-left
+          // - First step + vertical: top-left, top-right
+          // - Last step + horizontal: top-right, bottom-right
+          // - Last step + vertical: bottom-left, bottom-right
+          child: (isFirstStep || isLastStep || isOnlyOneStep) &&
+                  roundedEdges != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: _radiusTopLeft ? roundedEdges! : Radius.zero,
+                    bottomRight:
+                        _radiusBottomRight ? roundedEdges! : Radius.zero,
+                    bottomLeft: _radiusBottomLeft ? roundedEdges! : Radius.zero,
+                    topRight: _radiusTopRight ? roundedEdges! : Radius.zero,
+                  ),
+                  child: _buildStep,
+                )
+              : _buildStep,
+        ),
+      ],
     );
   }
 

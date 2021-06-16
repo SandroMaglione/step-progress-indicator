@@ -150,7 +150,7 @@ class CircularStepProgressIndicator extends StatelessWidget {
   /// Removes the extra angle caused by [StrokeCap.round] when [roundedCap] is applied
   final bool removeRoundedCapExtraAngle;
 
-  CircularStepProgressIndicator({
+  const CircularStepProgressIndicator({
     required this.totalSteps,
     this.child,
     this.height,
