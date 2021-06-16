@@ -1,6 +1,6 @@
 name: step_progress_indicator
 description: Bar indicator made of a series of selected and unselected steps
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/SandroMaglione/step-progress-indicator
 
 environment:

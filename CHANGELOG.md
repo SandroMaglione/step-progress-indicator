@@ -1,3 +1,7 @@
+## [1.0.1] - 16 June 2021
+- `StepProgressIndicator` and `CircularStepProgressIndicator` constructors as `const`
+- Added `stepMainAxisAlignment` and `stepCrossAxisAlignment` to align single step in `StepProgressIndicator` ([#28](https://github.com/SandroMaglione/step-progress-indicator/issues/28))
+
 ## [1.0.0] Nullsafety - 10 May 2021
 - Added `removeRoundedCapExtraAngle` to `CircularStepProgressIndicator` to remove extra angle caused by `StrokeCap.butt` when `roundedCap` is applied ([#20](https://github.com/SandroMaglione/step-progress-indicator/issues/20#issue-786114745))
 - Added the option to specify alignment for `StepProgressIndicator` (Thanks to [@faridg18](https://github.com/faridg18) for his contribution ([#15](https://github.com/SandroMaglione/step-progress-indicator/pull/15)))
