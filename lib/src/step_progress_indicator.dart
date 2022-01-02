@@ -1,6 +1,7 @@
 library step_progress_indicator;
 
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 /// (Linear) Progress indicator made of a series of steps
@@ -290,11 +291,7 @@ class StepProgressIndicator extends StatelessWidget {
       return ShaderMask(
         shaderCallback: (rect) => gradient.createShader(rect),
         // Apply user defined blendMode if defined, default otherwise
-        blendMode: blendMode != null
-            ? blendMode!
-            : padding == 0
-                ? BlendMode.src
-                : BlendMode.modulate,
+        blendMode: blendMode != null ? blendMode! : BlendMode.modulate,
         child: child,
       );
     } else {
