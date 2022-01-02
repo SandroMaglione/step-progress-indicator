@@ -5,9 +5,9 @@
     <img src="https://img.shields.io/github/stars/SandroMaglione/step-progress-indicator?logo=github" />
   </a>
   <img src="https://img.shields.io/github/license/SandroMaglione/step-progress-indicator?logo=github" />
-  <img src="https://img.shields.io/badge/version-1.0.1-blue.svg" />
-  <img src="https://img.shields.io/badge/flutter-v2.2.1-blue.svg" />
-  <img src="https://img.shields.io/badge/dart-v2.13.1-blue.svg" />
+  <img src="https://img.shields.io/badge/version-1.0.2-blue.svg" />
+  <img src="https://img.shields.io/badge/flutter-v2.8.0-blue.svg" />
+  <img src="https://img.shields.io/badge/dart-v2.15.0-blue.svg" />
   <a href="https://github.com/SandroMaglione">
     <img alt="GitHub: SandroMaglione" src="https://img.shields.io/github/followers/SandroMaglione?label=Follow&style=social" target="_blank" />
   </a>
@@ -38,7 +38,7 @@ Install and import the package. Then just customize its parameters.
 dependencies:
   flutter:
     sdk: flutter
-  step_progress_indicator: ^1.0.1
+  step_progress_indicator: ^1.0.2
 ```
 
 ---
@@ -414,6 +414,7 @@ If you would like to have a new feature implemented, just write a new issue.
 
 ## Versioning
 
+- v1.0.2 - 2 January 2022
 - v1.0.1 - 16 June 2021
 - v1.0.0 - 10 May 2021
 - v0.2.5+8 - 01 December 2020

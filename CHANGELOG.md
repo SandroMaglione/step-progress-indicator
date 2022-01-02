@@ -1,3 +1,6 @@
+## [1.0.2] - 2 January 2022
+- Fixed issue with `blendMode` and `roundedEdges` ([#32](https://github.com/SandroMaglione/step-progress-indicator/issues/32))
+
 ## [1.0.1] - 16 June 2021
 - `StepProgressIndicator` and `CircularStepProgressIndicator` constructors as `const`
 - Added `stepMainAxisAlignment` and `stepCrossAxisAlignment` to align single step in `StepProgressIndicator` ([#28](https://github.com/SandroMaglione/step-progress-indicator/issues/28))

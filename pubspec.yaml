@@ -1,6 +1,6 @@
 name: step_progress_indicator
 description: Bar indicator made of a series of selected and unselected steps
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/SandroMaglione/step-progress-indicator
 
 environment:
@@ -15,4 +15,3 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
